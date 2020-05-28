@@ -6,10 +6,13 @@ import About from '@/components/About/About.vue'
 import Photo from '@/components/photoDemo/photoDemo.vue'
 import IMConsole from '@/components/web-socket/IMConsole.vue'
 import UnAuth from '@/components/error/403.vue'
-import Help from '@/components/help/help.vue'
+import Home from '@/components/home/home.vue'
+import Health from '@/components/health/health.vue'
 import User from '@/components/admin/user/user.vue'
 import Role from '@/components/admin/role/role.vue'
 import Permission from '@/components/admin/permission/permission.vue'
+import PlanList from '@/components/plan/planList.vue'
+import PlanNew from '@/components/plan/planEdit.vue'
 
 Vue.use(Router)
 
@@ -29,6 +32,28 @@ export default new Router({
       name: 'Index',
       component: Index,
       children: [{
+          path: '/index/home',
+          name: 'index-home',
+          component: Home,
+          meta: {
+            permission: ['all', 'all-query']
+          }
+        }, {
+          path: '/index/plan-new',
+          name: 'index-plan-new',
+          component: PlanNew,
+          meta: {
+            hidden: true // 如果隐藏，则不映射菜单, 自定义属性只能定义在meta中
+          }
+        }, {
+          path: '/index/plan-list',
+          name: 'index-plan-list',
+          component: PlanList
+        }, {
+          path: '/index/health',
+          name: 'index-health',
+          component: Health
+        }, {
           path: '/index/about',
           name: 'index-about',
           component: About
@@ -45,14 +70,6 @@ export default new Router({
           path: '/index/IM',
           name: 'index-IM',
           component: IMConsole,
-          meta: {
-            permission: ['all', 'all-query']
-          }
-        },
-        {
-          path: '/index/help',
-          name: 'index-help',
-          component: Help,
           meta: {
             permission: ['all', 'all-query']
           }

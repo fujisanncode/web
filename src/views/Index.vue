@@ -8,9 +8,9 @@
               <v-flex xs6>
                 <v-subheader v-if="item.heading">{{ item.heading }}</v-subheader>
               </v-flex>
-              <v-flex xs6 class="text-xs-center">
+              <!-- <v-flex xs6 class="text-xs-center">
                 <a :href="item.to" class="body-2 black--text">EDIT</a>
-              </v-flex>
+              </v-flex> -->
             </v-list-item>
             <v-list-group v-else-if="item.children" v-model="item.model" :key="item.text" :prepend-icon="item.model ? item.icon : item['icon-alt']" append-icon="">
               <v-list-item slot="activator">
@@ -41,7 +41,7 @@
       <v-app-bar color="blue darken-3" dark app :clipped-left="$vuetify.breakpoint.lgAndUp">
         <v-toolbar-title style="width: 300px" class="ml-0 pl-3">
           <v-app-bar-nav-icon v-if="dispDrawer" @click.stop='drawer = !drawer'></v-app-bar-nav-icon>
-          <span class="hidden-sm-and-down">Google Contacts</span>
+          <span class="hidden-sm-and-down">FUJISANN</span>
         </v-toolbar-title>
         <v-text-field flat solo-inverted hide-details prepend-inner-icon="search" label="Search" class="hidden-sm-and-down"></v-text-field>
         <v-spacer></v-spacer>
@@ -113,21 +113,16 @@ import api from './index.service.js'
 export default {
   data () {
     return {
-      // drawer: null,
-      // items: [
-      //   { title: 'Home', icon: 'dashboard' },
-      //   { title: 'About', icon: 'question_answer' }
-      // ],
-      // mini: false,
-      // right: null,
       source: 'https://codepen.io/johnjleider/pen/EQOYVV',
       dialog: false,
       items: [
-        // { heading: 'Home' },// heading
+        { heading: 'Home' },// heading  
+        { icon: 'assignment_turned_in', text: 'plan' },// 制定计划    
+        { icon: 'restaurant_menu', text: 'health' },// 健康记录
         { icon: 'contacts', text: 'About' },// about
         { icon: 'history', text: 'Photo' }, // photon
         { icon: 'content_copy', text: 'WebSocket' }, // IM
-        { icon: 'help', text: 'Help' }, // help
+        // { icon: 'help', text: 'Help' }, // help
         { // 用户、角色、权限
           icon: 'personal_video',
           'icon-alt': 'personal_video',
@@ -146,19 +141,6 @@ export default {
           model: true, // 展开下拉
           children: [
             { icon: 'add', text: 'Create label' }
-          ]
-        },
-        {
-          icon: 'keyboard_arrow_up',
-          'icon-alt': 'keyboard_arrow_down',
-          text: 'More',
-          model: false,
-          children: [
-            { text: 'Import' },
-            { text: 'Export' },
-            { text: 'Print' },
-            { text: 'Undo changes' },
-            { text: 'Other contacts' }
           ]
         },
         { icon: 'settings', text: 'Settings' },
@@ -180,18 +162,28 @@ export default {
       if (ele.children) {
         // 对于子菜单的处理
         ele.children.forEach((e) => {
+          // 如果是隐藏路由，跳过
+          while (routerTemp[pushIndex] != undefined && routerTemp[pushIndex].meta != undefined && routerTemp[pushIndex].meta.hidden != undefined) {
+            pushIndex++
+          }
+          // 仅非隐藏路由和菜单建立映射
           e.to = pushIndex > routerTemp.length - 1 ? '/' : routerTemp[pushIndex].path
           pushIndex++
         })
       } else {
+        // 如果是隐藏路由，跳过
+        while (routerTemp[pushIndex] != undefined && routerTemp[pushIndex].meta != undefined && routerTemp[pushIndex].meta.hidden != undefined) {
+          pushIndex++
+        }
+        // 仅非隐藏路由和菜单建立映射
         ele.to = pushIndex > routerTemp.length - 1 ? '/' : routerTemp[pushIndex].path
         pushIndex++
       }
     })
 
     // 进入index页面后，默认跳转到/index/about页面
-    this.$router.push('/index/help')
-    this.drawer = true
+    this.$router.push('/index/home')
+    // this.drawer = true
   },
   methods: {
     hrefTo (child) {
