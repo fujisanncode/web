@@ -17,8 +17,8 @@ module.exports = {
     //以上的ip和端口是我们本机的;下面为需要跨域的
     proxy: { //配置跨域
       '/vue': {
-        target: 'http://localhost:8081',
-        // target: 'http://fujisann.ink:8081',
+        // target: 'http://localhost:8081',
+        target: 'http://fujisann.ink:8081',
         ws: true,
         changOrigin: true //允许跨域
         // pathRewrite: {
