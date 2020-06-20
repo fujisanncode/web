@@ -13,9 +13,11 @@
         </v-subheader>
         <v-list-item-group v-model="itemCount" color="primary">
           <v-list-item v-for="(item, i) in items" :key="i" :inactive="inactive">
-            <v-list-item-avatar v-if="avatar">
-              <v-img :src="item.avatar"></v-img>
-            </v-list-item-avatar>
+            <v-list-item-action>
+              <v-btn icon @click="deleteItem(item)">
+                <v-icon color="grey lighten-1">delete</v-icon>
+              </v-btn>
+            </v-list-item-action>
             <v-list-item-content>
               <v-list-item-title v-html="item.title"></v-list-item-title>
               <v-list-item-subtitle v-if="twoLine || threeLine" v-html="item.completionRate"></v-list-item-subtitle>
@@ -71,6 +73,13 @@ export default {
     forwardToNewPlan () {
       this.$router.push({
         name: 'index-plan-new'
+      })
+    },
+    // 根据主键id，删除计划
+    deleteItem (item) {
+      planService.deleteById(item.id).then(res => {
+        console.log('删除成功')
+        this.planList() // 删除成功后重新查询
       })
     }
   }

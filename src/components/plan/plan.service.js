@@ -13,5 +13,11 @@ export default {
       url: url.findAllPlan,
       method: 'get'
     })
+  },
+  deleteById(planId){
+    return instance({
+      url: `${url.deletePlanById}/${planId}`,
+      method: 'delete'
+    })
   }
 }

@@ -6,7 +6,8 @@ const url = {
   logout: '/vue/shiro-manage/logout',
   index: '/vue/shiro-manage/index',
   newPlan: '/vue/plan/new-plan',
-  findAllPlan: '/vue/plan/plan-list'
+  findAllPlan: '/vue/plan/plan-list',
+  deletePlanById: '/vue/plan/deletePlanById'
 }
 
 export default url

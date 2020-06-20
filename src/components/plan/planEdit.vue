@@ -93,7 +93,9 @@ export default {
   methods: {
     // 登录
     savePlan () {
+      this.form = false // 点击保存后禁用保存，避免重复点击
       planService.newPlan(this.newPlan).then((res) => {
+        this.forwardToPlanList() // 保存成功后跳转列表查询页面
         console.log('insert sucess')
       })
     },
