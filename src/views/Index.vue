@@ -1,18 +1,18 @@
 <template>
   <div id="app">
     <v-app id="inspire">
+      <!-- 左侧抽屉 -->
       <v-navigation-drawer v-model="drawer" app :clipped="$vuetify.breakpoint.lgAndUp">
         <v-list dense>
           <template v-for="item in items">
-            <v-list-item v-if="item.heading" :key="item.heading">
+            <!-- 如果item.heading 存在，则按照heading菜单的方式显示-->
+            <!-- <v-list-item v-if="item.heading" :key="item.heading">
               <v-flex xs6>
                 <v-subheader v-if="item.heading">{{ item.heading }}</v-subheader>
               </v-flex>
-              <!-- <v-flex xs6 class="text-xs-center">
-                <a :href="item.to" class="body-2 black--text">EDIT</a>
-              </v-flex> -->
-            </v-list-item>
-            <v-list-group v-else-if="item.children" v-model="item.model" :key="item.text" :prepend-icon="item.model ? item.icon : item['icon-alt']" append-icon="">
+            </v-list-item> -->
+            <!-- 如果item.childen存在，则按照存在子菜单的方式显示 -->
+            <v-list-group v-if="item.children" v-model="item.model" :key="item.text" :prepend-icon="item.model ? item.icon : item['icon-alt']" append-icon="">
               <v-list-item slot="activator">
                 <v-list-item-content>
                   <v-list-item-title>{{ item.text }}</v-list-item-title>
@@ -27,6 +27,7 @@
                 </v-list-item-content>
               </v-list-item>
             </v-list-group>
+            <!-- 其他的按照普通菜单的方式显示 -->
             <v-list-item v-else @click="$router.push(item.to)" :key="item.text">
               <v-list-item-action>
                 <v-icon>{{ item.icon }}</v-icon>
@@ -38,6 +39,7 @@
           </template>
         </v-list>
       </v-navigation-drawer>
+      <!-- toolbar，顶部标题栏 -->
       <v-app-bar color="blue darken-3" dark app :clipped-left="$vuetify.breakpoint.lgAndUp">
         <v-toolbar-title style="width: 300px" class="ml-0 pl-3">
           <v-app-bar-nav-icon v-if="dispDrawer" @click.stop='drawer = !drawer'></v-app-bar-nav-icon>
@@ -67,6 +69,7 @@
       <v-btn fab bottom right color="pink" dark fixed @click.stop="dialog = !dialog">
         <v-icon>add</v-icon>
       </v-btn>
+      <!-- 弹窗 -->
       <v-dialog v-model="dialog" width="800px">
         <v-card>
           <v-card-title class="grey lighten-4 py-4 title">Create contact</v-card-title>
@@ -115,8 +118,10 @@ export default {
     return {
       source: 'https://codepen.io/johnjleider/pen/EQOYVV',
       dialog: false,
-      items: [
-        { heading: 'Home' },// heading  
+      items: [ // 菜单顺序必须和路由匹配
+        // { heading: 'Home' },// heading  
+        { icon: 'class', text: 'reader' },// 阅读 
+        { icon: 'account_balance', text: 'home' },// heading  
         { icon: 'assignment_turned_in', text: 'plan' },// 制定计划    
         { icon: 'restaurant_menu', text: 'health' },// 健康记录
         { icon: 'contacts', text: 'About' },// about
@@ -151,7 +156,7 @@ export default {
       // 显示左侧栏的按钮
       dispDrawer: true,
       // 左侧栏是否显示
-      drawer: false
+      drawer: true
     }
   },
   created () {
@@ -182,7 +187,7 @@ export default {
     })
 
     // 进入index页面后，默认跳转到/index/about页面
-    this.$router.push('/index/home')
+    // this.$router.push('/index/home')
     // this.drawer = true
   },
   methods: {

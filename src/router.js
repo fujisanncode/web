@@ -6,6 +6,7 @@ import About from '@/components/About/About.vue'
 import Photo from '@/components/photoDemo/photoDemo.vue'
 import IMConsole from '@/components/web-socket/IMConsole.vue'
 import UnAuth from '@/components/error/403.vue'
+import Reader from '@/components/reader/reader.vue'
 import Home from '@/components/home/home.vue'
 import Health from '@/components/health/health.vue'
 import User from '@/components/admin/user/user.vue'
@@ -17,10 +18,10 @@ import PlanNew from '@/components/plan/planEdit.vue'
 Vue.use(Router)
 
 export default new Router({
-  // mode: history,
+  // mode: history, 根路径，默认跳转index
   routes: [{
       path: '/',
-      redirect: '/login'
+      redirect: '/index/reader'
     },
     {
       path: '/login',
@@ -31,7 +32,12 @@ export default new Router({
       path: '/index',
       name: 'Index',
       component: Index,
-      children: [{
+      children: [
+        {
+          path: '/index/reader',
+          name: 'index-reader',
+          component: Reader
+        },{
           path: '/index/home',
           name: 'index-home',
           component: Home,
