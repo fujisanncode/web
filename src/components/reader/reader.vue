@@ -1,42 +1,42 @@
+<style>
+</style>
+
 <template>
   <v-container>
     <v-layout text-xs-center wrap>
       <v-flex xs12>
         <div>这里是阅读页面</div>
-        <div>
-          <v-btn class="ma-2" @click="test">Now</v-btn>
-          <span>{{ indexResult }}</span>
+        <div class="pdf-container">
+          <pdf :src='pdfUrl' />
         </div>
       </v-flex>
     </v-layout>
-    <!-- <message></message> -->
   </v-container>
 </template>
 
 <script>
-import helpService from '@/components/reader/reader.service.js'
-// import message from '@/components/Message/message.vue'
+import readerService from '@/components/reader/reader.service.js'
+import pdf from 'vue-pdf'
+
 export default {
+  name: 'vuePdf',
+  components: {
+    pdf
+  },
   data () {
     return {
-      indexResult: 'initial'
+      pdfUrl: 'http://fujisann.ink/file/nodejs.pdf'
     }
   },
-  // components: {
-  //   message
-  // },
   created () {
   },
   methods: {
     // 测试cookie透传
     test () {
-      helpService.index().then(res => {
+      readerService.index().then(res => {
         this.indexResult = res.data
       })
     }
   }
 }
 </script>
-
-<style>
-</style>
