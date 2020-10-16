@@ -18,8 +18,10 @@ import PlanNew from '@/components/plan/planEdit.vue'
 Vue.use(Router)
 
 export default new Router({
-  // mode: history, 根路径，默认跳转index
-  routes: [{
+  // 根路径，默认跳转index, history模式根路径不确定
+  mode: 'history', 
+  routes: [
+    {
       path: '/',
       redirect: '/index/reader'
     },

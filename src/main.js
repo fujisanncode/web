@@ -51,25 +51,25 @@ Vue.prototype.$md5 = md5
 Vue.config.productionTip = false
 
 // 路由的钩子函数，切换路由前会进入此方法
-router.beforeEach((to, from, next) => {
-  console.log('router before')
-  // new Date(sessionStorage.getItem('loginDate')).getTime()
-  let unLoginFlag = sessionStorage.getItem('loginFlag') != 'Y'
-  // 如果登录的session失效跳转到登录,否则跳转到下一个页面
-  unLoginFlag = false
-  if (unLoginFlag) {
-    // 最后一次跳转next必须没有参数，有参数会重复进入beforeEach
-    // 因为next有参数，会认为你需要切换路由，从而重新进入此方法
-    // 如果next没有参数，会认为你不需要重新切换路由，从而不在进入此方法
-    if (to.path == '/login') {
-      next()
-    } else {
-      next('/login')
-    }
-  } else {
-    next()
-  }
-})
+// router.beforeEach((to, from, next) => {
+//   console.log('router before')
+//   // new Date(sessionStorage.getItem('loginDate')).getTime()
+//   let unLoginFlag = sessionStorage.getItem('loginFlag') != 'Y'
+//   // 如果登录的session失效跳转到登录,否则跳转到下一个页面
+//   unLoginFlag = false
+//   if (unLoginFlag) {
+//     // 最后一次跳转next必须没有参数，有参数会重复进入beforeEach
+//     // 因为next有参数，会认为你需要切换路由，从而重新进入此方法
+//     // 如果next没有参数，会认为你不需要重新切换路由，从而不在进入此方法
+//     if (to.path == '/login') {
+//       next()
+//     } else {
+//       next('/login')
+//     }
+//   } else {
+//     next()
+//   }
+// })
 
 new Vue({
   vuetify,
