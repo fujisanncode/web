@@ -11,8 +11,10 @@ export default {
   data () {
     return {
       ossUrl: 'http://fujisann.ink/file/',
-      pdfSrc: 'Maven权威指南中文版.pdf',
-      page: 210
+      // pdfSrc: 'nodejs.pdf',
+      pdfSrc: 'Java核心技术卷一基础知识第10版.pdf',
+      // pdfSrc: 'Maven权威指南中文版.pdf',
+      page: 1
     }
   },
   mounted () {

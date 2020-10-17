@@ -2,11 +2,7 @@
   <div id="app">
     <v-app id="inspire">
       <!-- 左侧抽屉 -->
-      <v-navigation-drawer
-        v-model="drawer"
-        app
-        :clipped="$vuetify.breakpoint.lgAndUp"
-      >
+      <v-navigation-drawer v-model="drawer" app :clipped="$vuetify.breakpoint.lgAndUp">
         <v-list dense>
           <template v-for="item in items">
             <!-- 如果item.heading 存在，则按照heading菜单的方式显示-->
@@ -16,23 +12,13 @@
               </v-flex>
             </v-list-item> -->
             <!-- 如果item.childen存在，则按照存在子菜单的方式显示 -->
-            <v-list-group
-              v-if="item.children"
-              v-model="item.model"
-              :key="item.text"
-              :prepend-icon="item.model ? item.icon : item['icon-alt']"
-              append-icon=""
-            >
+            <v-list-group v-if="item.children" v-model="item.model" :key="item.text" :prepend-icon="item.model ? item.icon : item['icon-alt']" append-icon="">
               <v-list-item slot="activator">
                 <v-list-item-content>
                   <v-list-item-title>{{ item.text }}</v-list-item-title>
                 </v-list-item-content>
               </v-list-item>
-              <v-list-item
-                v-for="(child, i) in item.children"
-                :key="i"
-                @click="hrefTo(child)"
-              >
+              <v-list-item v-for="(child, i) in item.children" :key="i" @click="hrefTo(child)">
                 <v-list-item-action v-if="child.icon">
                   <v-icon>{{ child.icon }}</v-icon>
                 </v-list-item-action>
@@ -54,27 +40,12 @@
         </v-list>
       </v-navigation-drawer>
       <!-- toolbar，顶部标题栏 -->
-      <v-app-bar
-        color="blue darken-3"
-        dark
-        app
-        :clipped-left="$vuetify.breakpoint.lgAndUp"
-      >
+      <v-app-bar color="blue darken-3" dark app :clipped-left="$vuetify.breakpoint.lgAndUp">
         <v-toolbar-title style="width: 300px" class="ml-0 pl-3">
-          <v-app-bar-nav-icon
-            v-if="dispDrawer"
-            @click.stop="drawer = !drawer"
-          ></v-app-bar-nav-icon>
+          <v-app-bar-nav-icon v-if="dispDrawer" @click.stop="drawer = !drawer"></v-app-bar-nav-icon>
           <span class="hidden-sm-and-down">FUJISANN</span>
         </v-toolbar-title>
-        <v-text-field
-          flat
-          solo-inverted
-          hide-details
-          prepend-inner-icon="search"
-          label="Search"
-          class="hidden-sm-and-down"
-        ></v-text-field>
+        <v-text-field flat solo-inverted hide-details prepend-inner-icon="search" label="Search" class="hidden-sm-and-down"></v-text-field>
         <v-spacer></v-spacer>
         <v-btn icon to="/">
           <v-icon>apps</v-icon>
@@ -92,67 +63,47 @@
           </v-avatar>
         </v-btn>
       </v-app-bar>
+      <v-footer padless app>
+        <v-card class="flex" flat tile>
+          <v-card-text class="py-2 black--text text-center">
+            @{{ new Date().getFullYear() }} fujisann — 皖ICP备20005176号
+          </v-card-text>
+        </v-card>
+      </v-footer>
       <v-main>
         <router-view></router-view>
       </v-main>
-      <v-btn
-        fab
-        bottom
-        right
-        color="pink"
-        dark
-        fixed
-        @click.stop="dialog = !dialog"
-      >
+      <v-btn fab bottom right color="pink" dark fixed @click.stop="dialog = !dialog">
         <v-icon>add</v-icon>
       </v-btn>
       <!-- 弹窗 -->
       <v-dialog v-model="dialog" width="800px">
         <v-card>
-          <v-card-title class="grey lighten-4 py-4 title"
-            >Create contact</v-card-title
-          >
+          <v-card-title class="grey lighten-4 py-4 title">Create contact</v-card-title>
           <v-container grid-list-sm class="pa-4">
             <v-layout row wrap>
               <v-flex xs12 align-center justify-space-between>
                 <v-layout align-center>
                   <v-avatar size="40px" class="mr-3">
-                    <img
-                      src="//ssl.gstatic.com/s2/oz/images/sge/grey_silhouette.png"
-                      alt=""
-                    />
+                    <img src="//ssl.gstatic.com/s2/oz/images/sge/grey_silhouette.png" alt="" />
                   </v-avatar>
                   <v-text-field placeholder="Name"></v-text-field>
                 </v-layout>
               </v-flex>
               <v-flex xs6>
-                <v-text-field
-                  prepend-icon="business"
-                  placeholder="Company"
-                ></v-text-field>
+                <v-text-field prepend-icon="business" placeholder="Company"></v-text-field>
               </v-flex>
               <v-flex xs6>
                 <v-text-field placeholder="Job title"></v-text-field>
               </v-flex>
               <v-flex xs12>
-                <v-text-field
-                  prepend-icon="mail"
-                  placeholder="Email"
-                ></v-text-field>
+                <v-text-field prepend-icon="mail" placeholder="Email"></v-text-field>
               </v-flex>
               <v-flex xs12>
-                <v-text-field
-                  type="tel"
-                  prepend-icon="phone"
-                  placeholder="(000) 000 - 0000"
-                  mask="phone"
-                ></v-text-field>
+                <v-text-field type="tel" prepend-icon="phone" placeholder="(000) 000 - 0000" mask="phone"></v-text-field>
               </v-flex>
               <v-flex xs12>
-                <v-text-field
-                  prepend-icon="notes"
-                  placeholder="Notes"
-                ></v-text-field>
+                <v-text-field prepend-icon="notes" placeholder="Notes"></v-text-field>
               </v-flex>
             </v-layout>
           </v-container>
@@ -170,7 +121,7 @@
 <script>
 import api from './index.service.js'
 export default {
-  data() {
+  data () {
     return {
       source: 'https://codepen.io/johnjleider/pen/EQOYVV',
       dialog: false,
@@ -216,7 +167,7 @@ export default {
       drawer: true,
     }
   },
-  created() {
+  created () {
     // 按照顺序映射router和菜单
     let routerTemp = this.$router.options.routes[2].children
     let pushIndex = 0
@@ -258,10 +209,10 @@ export default {
     // this.drawer = true
   },
   methods: {
-    hrefTo(child) {
+    hrefTo (child) {
       this.$router.push(child.to)
     },
-    logOut() {
+    logOut () {
       api.logout().then((res) => {
         console.log(`logout -> ${res.data}`)
         this.$router.push('/login')
