@@ -6,7 +6,6 @@
 </template>
 
 <script>
-let PDFJS = require('pdfjs-dist')
 export default {
   data () {
     return {

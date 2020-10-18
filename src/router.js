@@ -19,7 +19,8 @@ Vue.use(Router)
 
 export default new Router({
   // 根路径，默认跳转index, history模式根路径不确定
-  mode: 'history', 
+  mode: 'history',
+  base: '/web/',
   routes: [
     {
       path: '/',
@@ -38,7 +39,10 @@ export default new Router({
         {
           path: '/index/reader',
           name: 'index-reader',
-          component: Reader
+          component: Reader,
+          // meta: {
+          //   keepAlive: false // 禁止页面缓存
+          // }
         },{
           path: '/index/home',
           name: 'index-home',
