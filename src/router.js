@@ -20,7 +20,7 @@ Vue.use(Router)
 export default new Router({
   // 根路径，默认跳转index, history模式根路径不确定
   mode: 'history',
-  base: '/web/',
+  // base: '/web/',
   routes: [
     {
       path: '/',
