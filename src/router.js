@@ -40,9 +40,9 @@ export default new Router({
           path: '/index/reader',
           name: 'index-reader',
           component: Reader,
-          // meta: {
-          //   keepAlive: false // 禁止页面缓存
-          // }
+          meta: {
+            keepAlive: false // 禁止页面缓存
+          }
         },{
           path: '/index/home',
           name: 'index-home',
