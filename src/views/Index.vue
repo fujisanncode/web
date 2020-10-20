@@ -164,7 +164,7 @@ export default {
       // 显示左侧栏的按钮
       dispDrawer: true,
       // 左侧栏是否显示
-      drawer: true,
+      drawer: false,
     }
   },
   created () {
