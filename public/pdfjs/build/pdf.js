@@ -14045,6 +14045,8 @@ class PDFFetchStreamReader {
     this._isStreamingSupported = !source.disableStream;
     this._isRangeSupported = !source.disableRange;
     this._headers = createHeaders(this._stream.httpHeaders);
+    // 禁止使用浏览器缓存的请求头，解决刷新页面重新请求pdf时，请求头中出现Range: bytes=0-164298751，导致分段请求失败的问题
+    this._headers.set("Cache-Control", "no-cache");
     const url = source.url;
     fetch(url, createFetchOptions(this._headers, this._withCredentials, this._abortController)).then(response => {
       if (!(0, _network_utils.validateResponseStatus)(response.status)) {
