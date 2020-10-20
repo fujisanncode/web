@@ -128,7 +128,14 @@ export default {
       items: [
         // 菜单顺序必须和路由匹配
         // { heading: 'Home' },// heading
-        { icon: 'class', text: 'reader' }, // 阅读
+        {
+          icon: 'shopping_basket',
+          text: '书架',
+          children: [{
+            icon: 'class',
+            text: '阅读器',
+          }]
+        },
         { icon: 'account_balance', text: 'home' }, // heading
         { icon: 'assignment_turned_in', text: 'plan' }, // 制定计划
         { icon: 'restaurant_menu', text: 'health' }, // 健康记录

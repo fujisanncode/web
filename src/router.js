@@ -14,6 +14,7 @@ import Role from '@/components/admin/role/role.vue'
 import Permission from '@/components/admin/permission/permission.vue'
 import PlanList from '@/components/plan/planList.vue'
 import PlanNew from '@/components/plan/planEdit.vue'
+import BookShelf from '@/components/book-shelf/shelf'
 
 Vue.use(Router)
 
@@ -37,12 +38,14 @@ export default new Router({
       component: Index,
       children: [
         {
-          path: '/index/reader',
-          name: 'index-reader',
+          path: '/index/book-shelf',
+          name: 'book-shelf',
+          component: BookShelf
+        },
+        {
+          path: '/index/book-shelf/reader',
+          name: 'book-shelf-reader',
           component: Reader,
-          meta: {
-            keepAlive: false // 禁止页面缓存
-          }
         },{
           path: '/index/home',
           name: 'index-home',
