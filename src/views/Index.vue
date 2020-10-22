@@ -123,18 +123,25 @@ import api from './index.service.js'
 export default {
   data () {
     return {
-      source: 'https://codepen.io/johnjleider/pen/EQOYVV',
+      // source: 'https://codepen.io/johnjleider/pen/EQOYVV',
       dialog: false,
       items: [
         // 菜单顺序必须和路由匹配
         // { heading: 'Home' },// heading
         {
           icon: 'shopping_basket',
+          'icon-alt': 'shopping_basket',
           text: '书架',
-          children: [{
-            icon: 'class',
-            text: '阅读器',
-          }]
+          model: false,
+          children: [
+            {
+              icon: 'shopping_basket',
+              text: '书架',
+            },{
+              icon: 'class',
+              text: '阅读器',
+            }
+          ]
         },
         { icon: 'account_balance', text: 'home' }, // heading
         { icon: 'assignment_turned_in', text: 'plan' }, // 制定计划
@@ -175,7 +182,7 @@ export default {
     }
   },
   created () {
-    // 按照顺序映射router和菜单
+    // 按照顺序映射router和菜单，设置所有菜单的跳转地址，当菜单点击事件触发后则按照地址跳转
     let routerTemp = this.$router.options.routes[2].children
     let pushIndex = 0
     this.items.forEach((ele) => {
@@ -216,8 +223,9 @@ export default {
     // this.drawer = true
   },
   methods: {
-    hrefTo (child) {
-      this.$router.push(child.to)
+    // 菜单的点击事件
+    hrefTo (item) {
+      this.$router.push(item.to)
     },
     logOut () {
       api.logout().then((res) => {

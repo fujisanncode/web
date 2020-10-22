@@ -1,31 +1,31 @@
 import Vue from 'vue'
 import Router from 'vue-router'
-import Login from './views/Login.vue'
-import Index from './views/Index.vue'
+import Login from '@/views/Login.vue'
+import Index from '@/views/Index.vue'
+import Shelf from '@/components/reader/shelf/shelf.vue'
+import Reader from '@/components/reader/pdf/pdf.vue'
+import Home from '@/components/home/home.vue'
+import PlanNew from '@/components/plan/planEdit.vue'
+import PlanList from '@/components/plan/planList.vue'
+import Health from '@/components/health/health.vue'
 import About from '@/components/About/About.vue'
 import Photo from '@/components/photoDemo/photoDemo.vue'
 import IMConsole from '@/components/web-socket/IMConsole.vue'
-import UnAuth from '@/components/error/403.vue'
-import Reader from '@/components/reader/reader.vue'
-import Home from '@/components/home/home.vue'
-import Health from '@/components/health/health.vue'
 import User from '@/components/admin/user/user.vue'
 import Role from '@/components/admin/role/role.vue'
 import Permission from '@/components/admin/permission/permission.vue'
-import PlanList from '@/components/plan/planList.vue'
-import PlanNew from '@/components/plan/planEdit.vue'
-import BookShelf from '@/components/book-shelf/shelf'
+import UnAuth from '@/components/error/403.vue'
 
 Vue.use(Router)
 
 export default new Router({
   // 根路径，默认跳转index, history模式根路径不确定
   mode: 'history',
-  // base: '/web/',
+  // base: '/web',
   routes: [
     {
       path: '/',
-      redirect: '/index/reader'
+      redirect: '/index/reader/shelf'
     },
     {
       path: '/login',
@@ -38,14 +38,14 @@ export default new Router({
       component: Index,
       children: [
         {
-          path: '/index/book-shelf',
-          name: 'book-shelf',
-          component: BookShelf
+          path: '/index/reader/shelf',
+          name: 'index-reader-shelf',
+          component: Shelf
         },
         {
-          path: '/index/book-shelf/reader',
-          name: 'book-shelf-reader',
-          component: Reader,
+          path: '/index/reader/pdf',
+          name: 'index-reader-pdf',
+          component: Reader
         },{
           path: '/index/home',
           name: 'index-home',

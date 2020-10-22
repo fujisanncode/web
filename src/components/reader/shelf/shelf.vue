@@ -28,4 +28,4 @@
   </v-form>
 </template>
 
-<script src='shelf.js'></script>
+<script src='./shelf.js'></script>
