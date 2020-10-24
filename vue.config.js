@@ -18,7 +18,7 @@ module.exports = {
     https: false,
     //以上的ip和端口是我们本机的;下面为需要跨域的
     proxy: { //配置跨域
-      '/vue': {
+      '/learning': {
         target: 'http://localhost:8081',
         // target: 'http://fujisann.ink:8081',
         ws: true,
