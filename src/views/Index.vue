@@ -12,7 +12,8 @@
               </v-flex>
             </v-list-item> -->
             <!-- 如果item.childen存在，则按照存在子菜单的方式显示 -->
-            <v-list-group v-if="item.children" v-model="item.model" :key="item.text" :prepend-icon="item.model ? item.icon : item['icon-alt']" append-icon="">
+            <v-list-group v-if="item.children" v-model="item.model" :key="item.text"
+                          :prepend-icon="item.model ? item.icon : item['icon-alt']" append-icon="">
               <v-list-item slot="activator">
                 <v-list-item-content>
                   <v-list-item-title>{{ item.text }}</v-list-item-title>
@@ -45,7 +46,8 @@
           <v-app-bar-nav-icon v-if="dispDrawer" @click.stop="drawer = !drawer"></v-app-bar-nav-icon>
           <span class="hidden-sm-and-down">FUJISANN</span>
         </v-toolbar-title>
-        <v-text-field flat solo-inverted hide-details prepend-inner-icon="search" label="Search" class="hidden-sm-and-down"></v-text-field>
+        <v-text-field flat solo-inverted hide-details prepend-inner-icon="search" label="Search"
+                      class="hidden-sm-and-down"></v-text-field>
         <v-spacer></v-spacer>
         <v-btn icon to="/">
           <v-icon>apps</v-icon>
@@ -59,7 +61,7 @@
         <v-btn icon large>
           <v-avatar size="32px" tile>
             <!-- ./只能找到当前目录的文件，当前目录文件夹只能用../向下找 -->
-            <img src="../assets/logo.svg" alt="Vuetify" />
+            <img src="../assets/logo.svg" alt="Vuetify"/>
           </v-avatar>
         </v-btn>
       </v-app-bar>
@@ -85,7 +87,7 @@
               <v-flex xs12 align-center justify-space-between>
                 <v-layout align-center>
                   <v-avatar size="40px" class="mr-3">
-                    <img src="//ssl.gstatic.com/s2/oz/images/sge/grey_silhouette.png" alt="" />
+                    <img src="//ssl.gstatic.com/s2/oz/images/sge/grey_silhouette.png" alt=""/>
                   </v-avatar>
                   <v-text-field placeholder="Name"></v-text-field>
                 </v-layout>
@@ -100,7 +102,8 @@
                 <v-text-field prepend-icon="mail" placeholder="Email"></v-text-field>
               </v-flex>
               <v-flex xs12>
-                <v-text-field type="tel" prepend-icon="phone" placeholder="(000) 000 - 0000" mask="phone"></v-text-field>
+                <v-text-field type="tel" prepend-icon="phone" placeholder="(000) 000 - 0000"
+                              mask="phone"></v-text-field>
               </v-flex>
               <v-flex xs12>
                 <v-text-field prepend-icon="notes" placeholder="Notes"></v-text-field>
@@ -120,8 +123,9 @@
 </template>
 <script>
 import api from './index.service.js'
+
 export default {
-  data () {
+  data() {
     return {
       // source: 'https://codepen.io/johnjleider/pen/EQOYVV',
       dialog: false,
@@ -135,20 +139,24 @@ export default {
           model: false,
           children: [
             {
+              icon: 'web_asset',
+              text: '嵌入网页'
+            },
+            {
               icon: 'shopping_basket',
-              text: '书架',
-            },{
+              text: '书架'
+            }, {
               icon: 'class',
-              text: '阅读器',
+              text: '阅读器'
             }
           ]
         },
-        { icon: 'account_balance', text: 'home' }, // heading
-        { icon: 'assignment_turned_in', text: 'plan' }, // 制定计划
-        { icon: 'restaurant_menu', text: 'health' }, // 健康记录
-        { icon: 'contacts', text: 'About' }, // about
-        { icon: 'history', text: 'Photo' }, // photon
-        { icon: 'content_copy', text: 'WebSocket' }, // IM
+        {icon: 'account_balance', text: 'home'}, // heading
+        {icon: 'assignment_turned_in', text: 'plan'}, // 制定计划
+        {icon: 'restaurant_menu', text: 'health'}, // 健康记录
+        {icon: 'contacts', text: 'About'}, // about
+        {icon: 'history', text: 'Photo'}, // photon
+        {icon: 'content_copy', text: 'WebSocket'}, // IM
         // { icon: 'help', text: 'Help' }, // help
         {
           // 用户、角色、权限
@@ -157,10 +165,10 @@ export default {
           text: 'Admin',
           model: false,
           children: [
-            { text: 'Person', icon: 'people' },
-            { text: 'Role', icon: 'person' },
-            { text: 'Permission', icon: 'how_to_reg' },
-          ],
+            {text: 'Person', icon: 'people'},
+            {text: 'Role', icon: 'person'},
+            {text: 'Permission', icon: 'how_to_reg'}
+          ]
         },
         {
           // children
@@ -168,20 +176,20 @@ export default {
           'icon-alt': 'keyboard_arrow_down',
           text: 'Labels',
           model: true, // 展开下拉
-          children: [{ icon: 'add', text: 'Create label' }],
+          children: [{icon: 'add', text: 'Create label'}]
         },
-        { icon: 'settings', text: 'Settings' },
-        { icon: 'chat_bubble', text: 'Send feedback' },
-        { icon: 'phonelink', text: 'App downloads' },
-        { icon: 'keyboard', text: 'Go to the old version' },
+        {icon: 'settings', text: 'Settings'},
+        {icon: 'chat_bubble', text: 'Send feedback'},
+        {icon: 'phonelink', text: 'App downloads'},
+        {icon: 'keyboard', text: 'Go to the old version'}
       ],
       // 显示左侧栏的按钮
       dispDrawer: true,
       // 左侧栏是否显示
-      drawer: false,
+      drawer: false
     }
   },
-  created () {
+  created() {
     // 按照顺序映射router和菜单，设置所有菜单的跳转地址，当菜单点击事件触发后则按照地址跳转
     let routerTemp = this.$router.options.routes[2].children
     let pushIndex = 0
@@ -191,29 +199,29 @@ export default {
         ele.children.forEach((e) => {
           // 如果是隐藏路由，跳过
           while (
-            routerTemp[pushIndex] != undefined &&
-            routerTemp[pushIndex].meta != undefined &&
-            routerTemp[pushIndex].meta.hidden != undefined
-          ) {
+              routerTemp[pushIndex] != undefined &&
+              routerTemp[pushIndex].meta != undefined &&
+              routerTemp[pushIndex].meta.hidden != undefined
+              ) {
             pushIndex++
           }
           // 仅非隐藏路由和菜单建立映射
           e.to =
-            pushIndex > routerTemp.length - 1 ? '/' : routerTemp[pushIndex].path
+              pushIndex > routerTemp.length - 1 ? '/' : routerTemp[pushIndex].path
           pushIndex++
         })
       } else {
         // 如果是隐藏路由，跳过
         while (
-          routerTemp[pushIndex] != undefined &&
-          routerTemp[pushIndex].meta != undefined &&
-          routerTemp[pushIndex].meta.hidden != undefined
-        ) {
+            routerTemp[pushIndex] != undefined &&
+            routerTemp[pushIndex].meta != undefined &&
+            routerTemp[pushIndex].meta.hidden != undefined
+            ) {
           pushIndex++
         }
         // 仅非隐藏路由和菜单建立映射
         ele.to =
-          pushIndex > routerTemp.length - 1 ? '/' : routerTemp[pushIndex].path
+            pushIndex > routerTemp.length - 1 ? '/' : routerTemp[pushIndex].path
         pushIndex++
       }
     })
@@ -224,16 +232,16 @@ export default {
   },
   methods: {
     // 菜单的点击事件
-    hrefTo (item) {
+    hrefTo(item) {
       this.$router.push(item.to)
     },
-    logOut () {
+    logOut() {
       api.logout().then((res) => {
         console.log(`logout -> ${res.data}`)
         this.$router.push('/login')
       })
-    },
-  },
+    }
+  }
 }
 </script>
 

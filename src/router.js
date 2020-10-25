@@ -2,6 +2,8 @@ import Vue from 'vue'
 import Router from 'vue-router'
 import Login from '@/views/Login.vue'
 import Index from '@/views/Index.vue'
+import Embed from '@/components/reader/view/embed.vue'
+import View from '@/components/reader/view/view.vue'
 import Shelf from '@/components/reader/shelf/shelf.vue'
 import Reader from '@/components/reader/pdf/pdf.vue'
 import Home from '@/components/home/home.vue'
@@ -25,7 +27,7 @@ export default new Router({
   routes: [
     {
       path: '/',
-      redirect: '/index/reader/shelf'
+      redirect: '/index/reader/view'
     },
     {
       path: '/login',
@@ -38,6 +40,19 @@ export default new Router({
       component: Index,
       children: [
         {
+          path: '/index/reader/embed',
+          name: 'index-reader-embed',
+          component: Embed,
+          meta: {
+            hidden: true // 如果隐藏，则不映射菜单, 自定义属性只能定义在meta中
+          }
+        },
+        {
+          path: '/index/reader/view',
+          name: 'index-reader-view',
+          component: View
+        },
+        {
           path: '/index/reader/shelf',
           name: 'index-reader-shelf',
           component: Shelf
@@ -46,7 +61,7 @@ export default new Router({
           path: '/index/reader/pdf',
           name: 'index-reader-pdf',
           component: Reader
-        },{
+        }, {
           path: '/index/home',
           name: 'index-home',
           component: Home,
