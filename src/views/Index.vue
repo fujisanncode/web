@@ -2,7 +2,7 @@
   <div id="app">
     <v-app id="inspire">
       <!-- 左侧抽屉 -->
-      <v-navigation-drawer v-model="drawer" app :clipped="$vuetify.breakpoint.lgAndUp">
+      <v-navigation-drawer v-model="$vuetify.breakpoint.lgAndUp" app :clipped="$vuetify.breakpoint.lgAndUp">
         <v-list dense>
           <template v-for="item in items">
             <!-- 如果item.heading 存在，则按照heading菜单的方式显示-->
@@ -41,7 +41,7 @@
         </v-list>
       </v-navigation-drawer>
       <!-- toolbar，顶部标题栏 -->
-      <v-app-bar color="blue darken-3" dark app :clipped-left="$vuetify.breakpoint.lgAndUp">
+      <v-app-bar color="blue darken-3" dark app :clipped-left="$vuetify.breakpoint.lgAndUp" v-if="false">
         <v-toolbar-title style="width: 300px" class="ml-0 pl-3">
           <v-app-bar-nav-icon v-if="dispDrawer" @click.stop="drawer = !drawer"></v-app-bar-nav-icon>
           <span class="hidden-sm-and-down">FUJISANN</span>
@@ -184,9 +184,9 @@ export default {
         {icon: 'keyboard', text: 'Go to the old version'}
       ],
       // 显示左侧栏的按钮
-      dispDrawer: true,
+      dispDrawer: true
       // 左侧栏是否显示
-      drawer: false
+      // drawer: false
     }
   },
   created() {

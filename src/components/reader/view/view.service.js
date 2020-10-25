@@ -12,7 +12,7 @@ export default {
   // 查询网站分页
   page() {
     return instance({
-      url: '/learning/shelf/pageWeb',
+      url: '/learning/shelf/pageWeb?pageNum=1&pageSize=10',
       method: 'get'
     })
   },

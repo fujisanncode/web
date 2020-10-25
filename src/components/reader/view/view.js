@@ -54,7 +54,7 @@ export default {
     // 查询网站分页
     initialize() {
       apiService.page().then(resp => {
-        this.webList = resp.data
+        this.webList = resp.data.content
       })
     },
 
