@@ -129,6 +129,7 @@ export default {
     return {
       // source: 'https://codepen.io/johnjleider/pen/EQOYVV',
       dialog: false,
+      // 左侧菜单显示内容，在create中通过顺序和router绑定，拟在此处指定路由名称进行绑定
       items: [
         // 菜单顺序必须和路由匹配
         // { heading: 'Home' },// heading
