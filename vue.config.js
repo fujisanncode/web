@@ -20,7 +20,7 @@ module.exports = {
     proxy: { //配置跨域
       '/learning': {
         // target: 'http://localhost:8081',
-        target: 'http://fujisann.ink',
+        target: 'http://39.101.206.66:80/',
         ws: true,
         changOrigin: true //允许跨域
       //   pathRewrite: {
