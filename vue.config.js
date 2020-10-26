@@ -19,13 +19,13 @@ module.exports = {
     //以上的ip和端口是我们本机的;下面为需要跨域的
     proxy: { //配置跨域
       '/learning': {
-        target: 'http://localhost:8081',
-        // target: 'http://fujisann.ink:8081',
+        // target: 'http://localhost:8081',
+        target: 'http://fujisann.ink',
         ws: true,
         changOrigin: true //允许跨域
-        // pathRewrite: {
-        //     '^/api': ''//请求的时候使用这个api就可以
-        // }
+      //   pathRewrite: {
+      //       '^/learning': ''//请求的时候使用这个api就可以
+      //   }
       }
 
     }
