@@ -1,22 +1,24 @@
 import Vue from 'vue'
 import Router from 'vue-router'
-import Login from '@/views/Login.vue'
-import Index from '@/views/Index.vue'
-import Embed from '@/components/reader/view/embed.vue'
-import View from '@/components/reader/view/view.vue'
-import Shelf from '@/components/reader/shelf/shelf.vue'
-import Reader from '@/components/reader/pdf/pdf.vue'
-import Home from '@/components/home/home.vue'
-import PlanNew from '@/components/plan/planEdit.vue'
-import PlanList from '@/components/plan/planList.vue'
-import Health from '@/components/health/health.vue'
-import About from '@/components/About/About.vue'
-import Photo from '@/components/photoDemo/photoDemo.vue'
-import IMConsole from '@/components/web-socket/IMConsole.vue'
-import User from '@/components/admin/user/user.vue'
-import Role from '@/components/admin/role/role.vue'
-import Permission from '@/components/admin/permission/permission.vue'
-import UnAuth from '@/components/error/403.vue'
+
+// 将js分块打包，生成多个vendor，实现按需加载
+const Login = () => import(/* webpackChunkName: 'Login' */ '@/views/Login.vue')
+const Index = () => import(/* webpackChunkName: 'Index' */  '@/views/Index.vue')
+const Embed = () => import(/* webpackChunkName: 'Embed' */  '@/components/reader/view/embed.vue')
+const View = () => import(/* webpackChunkName: 'Shelf' */  '@/components/reader/view/view.vue')
+const Shelf = () => import(/* webpackChunkName: 'Shelf' */  '@/components/reader/shelf/shelf.vue')
+const Reader = () => import(/* webpackChunkName: 'Reader' */  '@/components/reader/pdf/pdf.vue')
+const Home = () => import(/* webpackChunkName: 'Home' */  '@/components/home/home.vue')
+const PlanNew = () => import(/* webpackChunkName: 'PlanNew' */  '@/components/plan/planEdit.vue')
+const PlanList = () => import(/* webpackChunkName: 'PlanList' */  '@/components/plan/planList.vue')
+const Health = () => import(/* webpackChunkName: 'Health' */  '@/components/health/health.vue')
+const About = () => import(/* webpackChunkName: 'About' */  '@/components/About/About.vue')
+const Photo = () => import(/* webpackChunkName: 'Photo' */  '@/components/photoDemo/photoDemo.vue')
+const IMConsole = () => import(/* webpackChunkName: 'IMConsole' */  '@/components/web-socket/IMConsole.vue')
+const User = () => import(/* webpackChunkName: 'User' */  '@/components/admin/user/user.vue')
+const Role = () => import(/* webpackChunkName: 'Role' */  '@/components/admin/role/role.vue')
+const Permission = () => import(/* webpackChunkName: 'Permission' */  '@/components/admin/permission/permission.vue')
+const UnAuth = () => import(/* webpackChunkName: 'UnAuth' */  '@/components/error/403.vue')
 
 Vue.use(Router)
 
