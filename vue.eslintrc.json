@@ -1,5 +1,5 @@
 {
-  "parser": "esprima",
+  "parser": "vue-eslint-parser",
   "parserOptions": {
     "ecmaVersion": 6,
     "sourceType": "module",
@@ -39,7 +39,7 @@
     "no-else-return": 2,
     "no-empty": 2,
     "no-empty-character-class": 2,
-    "no-empty-label": 2,
+    "no-empty-label": 0,
     "no-eq-null": 2,
     "no-eval": 1,
     "no-ex-assign": 2,
@@ -163,7 +163,7 @@
       1,
       "1tbs"
     ],
-    "callback-return": 1,
+    "callback-return": 0,
     "camelcase": 2,
     "comma-dangle": [
       2,
@@ -306,7 +306,7 @@
       "never"
     ],
     "space-infix-ops": 0,
-    "space-return-throw-case": 2,
+    "space-return-throw-case": 0,
     "space-unary-ops": [
       0,
       {

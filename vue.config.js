@@ -1,13 +1,11 @@
-
-
 const webpack = require('webpack')
 module.exports = {
   configureWebpack: {
     plugins: [
       new webpack.ProvidePlugin({
-        $: "jquery",
-        jQuery: "jquery",
-        "windows.jQuery": "jquery"
+        $: 'jquery',
+        jQuery: 'jquery',
+        'windows.jQuery': 'jquery'
       })
     ]
   },
@@ -20,12 +18,13 @@ module.exports = {
     proxy: { //配置跨域
       '/learning': {
         // target: 'http://localhost:8081',
-        target: 'http://39.101.206.66:80/',
+        // target: 'http://39.101.206.66:80/',
+        target: 'https://www.easy-mock.com/mock/5f9cb3720bf9ee030094075b',
         ws: true,
         changOrigin: true //允许跨域
-      //   pathRewrite: {
-      //       '^/learning': ''//请求的时候使用这个api就可以
-      //   }
+        //   pathRewrite: {
+        //       '^/learning': ''//请求的时候使用这个api就可以
+        //   }
       }
 
     }

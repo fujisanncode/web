@@ -17,7 +17,7 @@
 import helpService from '@/components/home/home.service.js'
 // import message from '@/components/Message/message.vue'
 export default {
-  data () {
+  data() {
     return {
       indexResult: 'initial'
     }
@@ -25,11 +25,12 @@ export default {
   // components: {
   //   message
   // },
-  created () {
+  created() {
+    console.log('home 完成加载')
   },
   methods: {
     // 测试cookie透传
-    test () {
+    test() {
       helpService.index().then(res => {
         this.indexResult = res.data
       })
