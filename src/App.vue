@@ -131,17 +131,17 @@
           <v-container grid-list-sm class="pa-4">
             <v-layout row wrap>
               <v-flex xs12>
-                <v-text-field prepend-icon="mail" placeholder="账号">{{ user.name }}}</v-text-field>
+                <v-text-field prepend-icon="mail" placeholder="账号" v-model="user.name"/>
               </v-flex>
               <v-flex xs12>
-                <v-text-field prepend-icon="notes" placeholder="密码">{{ user.password }}}</v-text-field>
+                <v-text-field prepend-icon="notes" placeholder="密码" v-model="user.password"/>
               </v-flex>
             </v-layout>
           </v-container>
           <v-card-actions>
             <v-spacer></v-spacer>
             <v-btn text color="primary" @click="loginDialog = false">取消</v-btn>
-            <v-btn text @click="loginDialog = false">登入</v-btn>
+            <v-btn text @click="logIn()">登入</v-btn>
           </v-card-actions>
         </v-card>
       </v-dialog>
@@ -165,10 +165,7 @@ export default {
       dispDrawer: true,
       // 定时器
       timer: '',
-      user: {
-        name: '',
-        password: ''
-      }
+      user: {}
       // 左侧栏是否显示
       // drawer: false
     }
@@ -183,11 +180,14 @@ export default {
       this.timer = setInterval(() => {
         if (this.$store.getters.getRouter.length !== 0) {
           this.buildMenu()
-          clearInterval(this.timer)
+          clearInterval(this.timer) // 加载完毕菜单，清除定时任务
         } else if (Date.now() - start > 1000) {
           console.log('构建菜单超时')
           this.$router.push('/404')
+          clearInterval(this.timer) // 超时，清除定时任务
         }
+        // 其他情况，等待定时任务再次执行
+        clearInterval(this.timer) // 超时，清除定时任务
       }, 50)
 
     }
@@ -227,6 +227,7 @@ export default {
       // })
     },
     logIn() {
+      this.loginDialog = false
       console.log('登入')
       instance({
         url: '/learning/shiro-manage/login',
@@ -239,7 +240,7 @@ export default {
         console.log(resp.data)
         // 测试接口权限
         instance({
-          url: '/leaning/shiro-manage/findAllUser',
+          url: '/learning/shiro-manage/findAllUser',
           method: 'get'
         }).then(res => {
           console.log(JSON.stringify(res.data))

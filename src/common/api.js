@@ -8,7 +8,8 @@ let instance = axios.create({
   timeout: 30000, // 超时时间
   withCredentials: true, // 是否允许携带cookie
   headers: {
-    'content-type': 'application/json'
+    'content-type': 'application/json',
+    'Access-Control-Allow-Credentials': true // 配置withCredential
   }
 })
 
