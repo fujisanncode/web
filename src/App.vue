@@ -56,10 +56,10 @@
           <v-icon>notifications</v-icon>
         </v-btn>
         <v-btn icon @click.stop="loginDialog = !loginDialog">
-          <v-icon>power_settings_new</v-icon>
+          <v-icon>lock_open</v-icon>
         </v-btn>
         <v-btn icon @click="logOut()">
-          <v-icon>power_settings_new</v-icon>
+          <v-icon>lock_outline</v-icon>
         </v-btn>
         <v-btn icon large>
           <v-avatar size="32px" tile>
@@ -131,10 +131,10 @@
           <v-container grid-list-sm class="pa-4">
             <v-layout row wrap>
               <v-flex xs12>
-                <v-text-field prepend-icon="mail" placeholder="账号"></v-text-field>
+                <v-text-field prepend-icon="mail" placeholder="账号">{{ user.name }}}</v-text-field>
               </v-flex>
               <v-flex xs12>
-                <v-text-field prepend-icon="notes" placeholder="密码"></v-text-field>
+                <v-text-field prepend-icon="notes" placeholder="密码">{{ user.password }}}</v-text-field>
               </v-flex>
             </v-layout>
           </v-container>
@@ -150,6 +150,7 @@
 </template>
 
 <script>
+import instance from '@/common/api.js'
 
 export default {
   data() {
@@ -163,7 +164,11 @@ export default {
       // 显示左侧栏的按钮
       dispDrawer: true,
       // 定时器
-      timer: ''
+      timer: '',
+      user: {
+        name: '',
+        password: ''
+      }
       // 左侧栏是否显示
       // drawer: false
     }
@@ -223,6 +228,23 @@ export default {
     },
     logIn() {
       console.log('登入')
+      instance({
+        url: '/learning/shiro-manage/login',
+        method: 'post',
+        data: {
+          name: this.user.name,
+          password: this.user.password
+        }
+      }).then(resp => {
+        console.log(resp.data)
+        // 测试接口权限
+        instance({
+          url: '/leaning/shiro-manage/findAllUser',
+          method: 'get'
+        }).then(res => {
+          console.log(JSON.stringify(res.data))
+        })
+      })
     }
   }
 }
