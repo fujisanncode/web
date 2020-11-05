@@ -1274,7 +1274,7 @@ const PDFViewerApplication = {
     if (moreInfo) {
       moreInfoText.push(this.l10n.get("error_message", {
         message: moreInfo.message
-      }, "Message: {{message}}"));
+      }, "message: {{message}}"));
 
       if (moreInfo.stack) {
         moreInfoText.push(this.l10n.get("error_stack", {

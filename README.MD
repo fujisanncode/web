@@ -28,6 +28,12 @@ npm run test
 ```
 npm run lint
 ```
+
+### 更新npm
+```
+npm install -g npm
+```
+
 ### 自定义配置
 See [Configuration Reference](https://cli.vuejs.org/config/).
 

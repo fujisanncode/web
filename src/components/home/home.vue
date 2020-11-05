@@ -15,7 +15,7 @@
 
 <script>
 import helpService from '@/components/home/home.service.js'
-// import message from '@/components/Message/message.vue'
+// import message from '@/components/message/message.vue'
 export default {
   data() {
     return {

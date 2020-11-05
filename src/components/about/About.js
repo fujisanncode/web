@@ -1,4 +1,4 @@
-import apiService from "@/components/About/About.service.js"
+import apiService from "@/components/about/About.service.js"
 export default {
   data () {
     return {

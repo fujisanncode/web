@@ -1,4 +1,4 @@
-import apiService from '@/components/photoDemo/photoDemo.service.js'
+import apiService from '@/components/photo/photoDemo.service.js'
 import {getCookie} from '@/common/cookie.js'
 import loginService from '@/components/login/login.service.js'
 export default {

@@ -20,7 +20,7 @@ import VueFroala from 'vue-froala-wysiwyg'
 // window.jQuery = window.$ = $
 // require('vuetify/src/stylus/app.styl')
 // 全局使用自定义的组件；在vue的js中用this.$msg,在独立的js先import vue，然后用v.prototype.$msg使用组件
-import registryMsg from '@/components/Message/message.js'
+import registryMsg from '@/components/message/message.js'
 // let base64 = require('js-base64').Base64
 // import 引入资源=============================================================================================================================
 
@@ -119,7 +119,7 @@ function formatRouter() {
 // vue实例化 =====================================================================================================================================
 // $mount: 指定vue实例的挂载点， 将vue实例挂在index.html上id为app的div上
 // 代替template字段，渲染模板字符串为dom页面, 渲染的页面会替代index.html中挂载点的元素(id=app的div元素)
-let vue = new Vue({
+new Vue({
   vuetify,
   router,
   store,
@@ -128,4 +128,4 @@ let vue = new Vue({
 // vue实例化 =====================================================================================================================================
 
 // 将vue实例导出，以便在外部js中使用this
-export default vue
+// export default vue
