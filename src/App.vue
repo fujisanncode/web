@@ -258,9 +258,7 @@ export default {
       })
     },
     loginDia(){
-      // this.$toast('Default toast')
-      // this.snackbar = true
-      // this.loginDialog = !this.loginDialog
+      this.loginDialog = !this.loginDialog
     }
   }
 }
