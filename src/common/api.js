@@ -3,6 +3,7 @@ import Router from '@/router.js'
 import url from './const.js'
 // 注意：在js文件中使用element组件 按照下面更优雅哦~~
 import Vue from 'vue'
+import self from '../main.js'
 
 let instance = axios.create({
   timeout: 30000, // 超时时间
@@ -33,7 +34,8 @@ instance.interceptors.response.use(
     case url.unAuthCode:
       // Router.push('/login')
       console.log('未认证')
-      Vue.prototype.$msg({text: err.response.status, color: 'info'})
+      self.$toast('Default toast')
+      // Vue.prototype.$msg({text: err.response.status, color: 'info'})
       break
     case url.forbiddenCode:
       console.log('未授权')

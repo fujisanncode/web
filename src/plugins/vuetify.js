@@ -1,5 +1,6 @@
 import Vue from 'vue'
-import Vuetify from 'vuetify/lib'
+import Vuetify, { VSnackbar } from 'vuetify/lib'
+import VuetifyToast from 'vuetify-toast-snackbar'
 // Vuetify 样式
 // import 'vuetify/dist/vuetify.min.css'
 // vuetify1.5
@@ -8,8 +9,12 @@ import Vuetify from 'vuetify/lib'
 import zhHans from 'vuetify/es5/locale/zh-Hans'
 import colors from 'vuetify/lib/util/colors'
 
-Vue.use(Vuetify);
-export default new Vuetify({
+Vue.use(Vuetify, {
+  components: {
+    VSnackbar
+  }
+})
+const vuetify =  new Vuetify({
   icons: {
     iconfont: 'mdi'
   },
@@ -28,3 +33,5 @@ export default new Vuetify({
     current: 'zh-Hans'
   }
 })
+Vue.use(VuetifyToast, { $vuetify: vuetify.framework })
+export default vuetify

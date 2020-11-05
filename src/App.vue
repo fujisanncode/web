@@ -144,7 +144,13 @@
         </v-card-actions>
       </v-card>
     </v-dialog>
-    <div id="snake"></div>
+
+    <!-- 测试snakebar使用 -->
+    <!-- <div id="snake0">
+      <v-snackbar v-model="snackbar0">xxx</v-snackbar>
+    </div> -->
+    <div id="snake">
+    </div>
   </v-app>
 </template>
 
@@ -165,7 +171,7 @@ export default {
       // 定时器
       timer: '',
       user: {},
-      snackbar: false
+      snackbar0: true
       // 左侧栏是否显示
       // drawer: false
     }
@@ -186,7 +192,7 @@ export default {
           clearInterval(that.timer) // 加载完毕菜单，清除定时任务
         } else if (Date.now() - start > 1000) {
           console.log('构建菜单超时')
-          this.$router.push('/404')
+          // this.$router.push('/404')
           clearInterval(that.timer) // 超时，清除定时任务
         }
         // 其他情况，等待定时任务再次执行
@@ -252,7 +258,8 @@ export default {
       })
     },
     loginDia(){
-      this.snackbar = true
+      this.$toast('Default toast')
+      // this.snackbar = true
       // this.loginDialog = !this.loginDialog
     }
   }
