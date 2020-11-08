@@ -75,10 +75,10 @@
         </v-card-text>
       </v-card>
     </v-footer>
+
     <!-- 加载路由-->
-    <v-main>
-      <router-view></router-view>
-    </v-main>
+    <router-view></router-view>
+
     <!-- 浮动按钮-->
     <v-btn fab bottom right color="pink" dark fixed @click.stop="dialog = !dialog">
       <v-icon>add</v-icon>
@@ -138,6 +138,7 @@
           </v-layout>
         </v-container>
         <v-card-actions>
+          <v-checkbox v-model="rememberUser" label="记住密码"></v-checkbox>
           <v-spacer></v-spacer>
           <v-btn text color="primary" @click="loginDialog = false">取消</v-btn>
           <v-btn text @click="logIn()">登入</v-btn>
@@ -156,6 +157,8 @@
 
 <script>
 import instance from '@/common/api.js'
+import {getCookie, setCookie} from '@/common/cookie.js'
+import {Base64} from 'js-base64'
 
 export default {
   data() {
@@ -171,74 +174,99 @@ export default {
       // 定时器
       timer: '',
       user: {},
-      snackbar0: true
+      snackbar0: true,
+      rememberUser: false
       // 左侧栏是否显示
       // drawer: false
     }
   },
   created() {
-    console.log('Index.vue开始加载......')
-
     // 如果未加载过菜单，则将后台路由转化为菜单
-    if (this.items.length === 0) {
+    let savedMenu = window.sessionStorage.getItem('routerList')
+    if (savedMenu === null) {
       let start = Date.now()
       // 50ms执行一次定时任务，路由表不为空或超时：则清楚定时任务，并完成路由跳转
       let that = this
       that.timer = setInterval(() => {
-        console.log('进入构建菜单的定时任务')
         if (this.$store.getters.getRouter.length !== 0) {
-          console.log('开始构建菜单')
           this.buildMenu()
           clearInterval(that.timer) // 加载完毕菜单，清除定时任务
         } else if (Date.now() - start > 1000) {
-          console.log('构建菜单超时')
           // this.$router.push('/404')
           clearInterval(that.timer) // 超时，清除定时任务
         }
         // 其他情况，等待定时任务再次执行
         // clearInterval(this.timer) // 超时，清除定时任务
       }, 50)
-
+    } else {
+      // 如果本地存储了路由信息则
+      this.addRouter(JSON.parse(savedMenu))
+      this.buildMenu()
     }
 
-    console.log('Index.vue完成加载:' + JSON.stringify(this.items))
+    // 页面初始化的时候从cookie读取用户名和密码
+    if (this.user.name !== undefined) {
+      this.user.name = getCookie('name')
+      this.user.password = Base64.decode(getCookie('password'))
+    }
+    console.log("当前加载完成的菜单为 =======> " + JSON.stringify(this.items))
   },
   methods: {
     // 构建左侧菜单
     buildMenu() {
       // 将store中路由列表（从后台请求的路由列表）中菜单相关数据提取出来
       let routerList = this.$store.getters.getRouter
-      for (let i = 0; i < routerList.length; i++) {
-        let e = routerList[i], meta = e.meta
-        // 如果是隐藏路由，则不需要被处理为菜单
+      // 清空当前菜单
+      this.items = []
+      // 将保存的路由列表中菜单信息提取出来
+      this.items.push(...this.buildChild(routerList))
+
+      // console.log("当前路由值 ====> " + JSON.stringify(this.$store.getters.getRouter))
+      // console.log("当前菜单值 ====> " + JSON.stringify(this.items))
+    },
+    buildChild(children) {
+      let result = []
+      if (children === undefined) {
+        return result
+      }
+      for (let i = 0; i < children.length; i++) {
+        let e = children[i], meta = e.meta
+        // 去除隐藏的菜单
         if (e.meta.hidden === 'true') {
           continue
         }
-        this.items.push({
+        result.push({
           to: e.path,
           text: meta.text,
           icon: meta.icon,
-          'alt-icon': meta['alt-icon'],
-          model: meta.model
+          'icon-alt': meta['icon-alt'],
+          model: meta.model === 'true',
+          children: this.buildChild(e.children)
         })
       }
-      console.log('左侧菜单构建完毕')
+      return result;
     },
     // 菜单的点击事件
     hrefTo(item) {
       this.$router.push(item.to)
     },
     logOut() {
-      console.log('登出')
       // api.logout().then((res) => {
-      //   console.log(`logout -> ${res.data}`)
       //   this.$router.push('/login')
       // })
     },
     logIn() {
+      // 如果勾选了记住密码，则使用localstorage保存密码，页面初始化的时候重新设置密码
+      if (this.rememberUser === true) {
+        setCookie('name', this.user.name)
+        setCookie('password', Base64.encode(this.user.password))
+      } else {
+        setCookie('name', undefined)
+        setCookie('password', undefined)
+      }
       this.snackbar = true
       this.loginDialog = false
-      console.log('登入')
+      let that = this
       instance({
         url: '/learning/shiro-manage/login',
         method: 'post',
@@ -247,18 +275,59 @@ export default {
           password: this.user.password
         }
       }).then(resp => {
-        console.log(resp.data)
-        // 测试接口权限
-        instance({
-          url: '/learning/shiro-manage/findAllUser',
-          method: 'get'
-        }).then(res => {
-          console.log(JSON.stringify(res.data))
+        let routerList = resp.data.data
+        // 登录后保存路由数据
+        window.sessionStorage.setItem('routerList', JSON.stringify(routerList))
+        // 保存后台请求的路由
+        that.addRouter(routerList)
+        // 读取保存的路由中的菜单信息，然后构建菜单
+        that.buildMenu()
+      })
+    },
+    // 将routerList解析并添加到路由中
+    addRouter(routerList) {
+      let that = this
+      that.$store.dispatch('generatorRouter', routerList).then(() => {
+        let savedRouter = []
+        that.$store.getters.getRouter.forEach(e => {
+          let componentName = e.component
+          e.component = resolve => {
+            require(['@/' + componentName + '.vue'], resolve)
+          }
+          if (e.children !== undefined) {
+            e.children = this.buildChildRouter(e.children)
+          }
+
+          // 如果当前路由未添加过，则添加
+          if (that.$router.getMatchedComponents(e.path).length === 0) {
+            // 动态路由:https://router.vuejs.org/zh/api/#router-addroutes
+            let routersTmp = []
+            routersTmp.push(e)
+            savedRouter.push(e)
+            that.$router.addRoutes(routersTmp)
+          }
         })
       })
     },
-    loginDia(){
+    buildChildRouter(children) {
+      children.forEach(e => {
+        let componentName = e.component
+        e.component = resolve => {
+          require(['@/' + componentName + '.vue'], resolve)
+        }
+        if(e.children !== undefined) {
+          e.children = this.buildChildRouter(e.children)
+        }
+      })
+      return children
+    },
+    loginDia() {
       this.loginDialog = !this.loginDialog
+
+      // 如果当前cookie中保存了用户名，则记住密码默认勾选
+      if (getCookie('name') !== undefined) {
+        this.rememberUser = true
+      }
     }
   }
 }

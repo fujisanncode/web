@@ -76,8 +76,10 @@ router.beforeEach((to, from, next) => {
     next()
   } else {
     instance.get('/learning/admin/findMenu').then(resp => {
+      let routerList = resp.data.data
+      // window.localStorage.setItem('routerList', JSON.stringify(routerList))
       // 先将后台请求的路由数据保存下来，dispatch触发store.action中方法
-      store.dispatch('generatorRouter', resp.data.data).then(() => {
+      store.dispatch('generatorRouter', routerList).then(() => {
         let routerResult = []
         store.getters.getRouter.forEach(e => {
           let componentName = e.component

@@ -6,13 +6,17 @@ Vue.use(Vuex)
 export default new Vuex.Store({
   // 变量
   state: {
-    routerList: []
+    routerList: [],
+    menus:[]
   },
   // 获取变量
   getters: {
     // 获取路由列表（从后台获取的路由列表被保存在state中）
     getRouter(state) {
       return state.routerList
+    },
+    menus(state){
+      return state.menus
     }
   },
   mutations: {},
@@ -22,6 +26,9 @@ export default new Vuex.Store({
     generatorRouter(context, routerList) {
       console.log('dispatch 触发了actions中方法，用于保存后台请求的路由')
       context.state.routerList = routerList
+    },
+    menus(context, menuList){
+      context.state.menus = menuList
     }
   }
 })

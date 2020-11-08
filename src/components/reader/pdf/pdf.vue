@@ -2,7 +2,9 @@
 </style>
 
 <template>
-  <iframe ref="iframe" v-if="pdfSrc != ''" :src="'/pdfjs/web/viewer.html?file=' + ossUrl + pdfSrc + '#page=' + page" width="100%" height="100%" frameborder="0"></iframe>
+  <v-main>
+    <iframe ref="iframe" v-if="pdfSrc != ''" :src="'/pdfjs/web/viewer.html?file=' + ossUrl + pdfSrc + '#page=' + page" width="100%" height="100%" frameborder="0"></iframe>
+  </v-main>
 </template>
 
 <script>

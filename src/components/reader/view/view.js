@@ -25,7 +25,8 @@ export default {
       fat: 0,
       carbs: 0,
       protein: 0
-    }
+    },
+    ifDateTable: true
   }),
 
   computed: {
@@ -49,7 +50,8 @@ export default {
 
   methods: {
     toEmbed(val) {
-      this.$router.push({name: 'index-reader-embed', params: {webUrl: val}})
+      this.ifDateTable = false
+      this.$router.push({name: 'reader-view-embed', params: {webUrl: val}})
     },
     // 查询网站分页
     initialize() {
