@@ -1,5 +1,5 @@
 <template>
-  <v-container>
+  <v-main>
     <v-layout text-xs-center wrap>
       <v-flex xs12>
         <div>Welcome to home page !!!</div>
@@ -10,7 +10,7 @@
       </v-flex>
     </v-layout>
     <!-- <message></message> -->
-  </v-container>
+  </v-main>
 </template>
 
 <script>

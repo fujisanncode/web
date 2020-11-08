@@ -235,14 +235,18 @@ export default {
         if (e.meta.hidden === 'true') {
           continue
         }
-        result.push({
+
+        let tmp = {
           to: e.path,
           text: meta.text,
           icon: meta.icon,
           'icon-alt': meta['icon-alt'],
           model: meta.model === 'true',
-          children: this.buildChild(e.children)
-        })
+        }
+        if(e.children !== undefined) {
+          tmp.children = this.buildChild(e.children)
+        }
+        result.push(tmp)
       }
       return result;
     },
@@ -288,7 +292,6 @@ export default {
     addRouter(routerList) {
       let that = this
       that.$store.dispatch('generatorRouter', routerList).then(() => {
-        let savedRouter = []
         that.$store.getters.getRouter.forEach(e => {
           let componentName = e.component
           e.component = resolve => {
@@ -303,7 +306,6 @@ export default {
             // 动态路由:https://router.vuejs.org/zh/api/#router-addroutes
             let routersTmp = []
             routersTmp.push(e)
-            savedRouter.push(e)
             that.$router.addRoutes(routersTmp)
           }
         })
