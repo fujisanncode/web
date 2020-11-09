@@ -4,6 +4,9 @@
       <v-row>
         <v-btn class="ma-1" :text="true">富文本编辑器</v-btn>
         <v-btn class="ma-1" @click="submit">提交</v-btn>
+        <v-btn :icon="true">
+          <v-icon>$vuetify.icons.markdown</v-icon>
+        </v-btn>
       </v-row>
       <v-row>
         <v-col>

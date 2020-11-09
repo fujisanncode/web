@@ -8,14 +8,13 @@ import Vuetify from 'vuetify/lib'
 // import 'vuetify/src/styles/main.sass'
 import zhHans from 'vuetify/es5/locale/zh-Hans'
 import colors from 'vuetify/lib/util/colors'
-import markdown from '@/assets/icon/markdown.png'
-import logo from '@/assets/logo.svg'
+import '@/assets/icon/markdown/iconfont.css'
 
 const vuetify =  new Vuetify({
   icons: {
     iconfont: 'mdi',
     values: {
-      markdown: 'fas fa-ellipsis-v'
+      markdown: 'icon iconfont'
     },
   },
   theme: {
