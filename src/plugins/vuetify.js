@@ -1,20 +1,18 @@
 import Vue from 'vue'
 import Vuetify from 'vuetify/lib'
-// import VuetifyToast from 'vuetify-toast-snackbar'
-// Vuetify 样式
-// import 'vuetify/dist/vuetify.min.css'
-// vuetify1.5
-// import 'vuetify/src/stylus/app.styl'
-// import 'vuetify/src/styles/main.sass'
 import zhHans from 'vuetify/es5/locale/zh-Hans'
 import colors from 'vuetify/lib/util/colors'
+// 引用自定义图标文件
 import '@/assets/icon/markdown/iconfont.css'
+import MyIcon from '@/components/icon/icon.vue'
 
 const vuetify =  new Vuetify({
   icons: {
-    iconfont: 'mdi',
-    values: {
-      markdown: 'icon iconfont'
+    iconfont: 'mdi', // mdi表示material-design-icon图标库
+    values: { // 自定义图标
+      markdown: {
+        component: MyIcon
+      },
     },
   },
   theme: {

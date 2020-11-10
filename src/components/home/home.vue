@@ -3,6 +3,7 @@
     <v-layout text-xs-center wrap>
       <v-flex xs12>
         <div>Welcome to home page !!!</div>
+        <v-icon>$vuetify.icons.markdown</v-icon>
         <div>
           <v-btn class="ma-2" @click="test">Now</v-btn>
           <span>{{ indexResult }}</span>
