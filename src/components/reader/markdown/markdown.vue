@@ -1,46 +1,19 @@
 <template>
-  <v-main>
-    <v-card class="pa-6">
-      <v-row>
-        <v-btn class="ma-1" :text="true">富文本编辑器</v-btn>
-        <v-btn class="ma-1" @click="submit">提交</v-btn>
-        <v-btn :icon="true">
-          <v-icon>$vuetify.icons.markdown</v-icon>
-        </v-btn>
-      </v-row>
-      <v-row>
-        <v-col>
-          <div id="vditor"></div>
-        </v-col>
-      </v-row>
-    </v-card>
-  </v-main>
+  <article v-html="value" ></article>
 </template>
 
 <script>
-import Vditor from "vditor"
-import "vditor/dist/index.css"
-
 export default {
   data() {
-    return {
-      contentEditor: ""
-    }
+    return {//value的值是经过markdown解析后的文本，可使用`@change="changeData"`在控制台打印显示
+      value: `<blockquote>
+									<p>你好</p>
+									</blockquote>
+									<p><code>java</code></p>`,
+      defaultData: "preview"
+    };
   },
-  mounted() {
-    this.contentEditor = new Vditor("vditor", {
-      height: 600,
-      toolbarConfig: {
-        pin: true
-      },
-      cache: {
-        enable: false
-      },
-      after: () => {
-        this.contentEditor.setValue("hello,Vditor+Vue!")
-      }
-    })
-  },
-  methods: {}
-}
+  methods: {
+  }
+};
 </script>
