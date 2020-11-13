@@ -49,6 +49,7 @@ export default {
     api.get(url).then(resp => {
       console.log('===>' + resp.data.content)
       this.contentEditor.setValue(resp.data.content)
+      this.blogId = resp.data.id
     })
   },
   methods: {

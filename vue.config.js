@@ -18,7 +18,7 @@ module.exports = {
     proxy: { //配置跨域
       '/learning': {
         // target: 'http://localhost:8081',
-        target: 'http://fujisann.ink/learning/',
+        target: 'http://fujisann.ink',
         // target: 'http://39.101.206.66:80/',
         // target: 'https://www.easy-mock.com/mock/5f9cb3720bf9ee030094075b',
         ws: true,
