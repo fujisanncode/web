@@ -79,8 +79,9 @@ router.beforeEach((to, from, next) => {
     console.log('store中已经存储了后台请求的路由: ' + store.getters.getRouter[0].path)
     next()
   } else {
+    // 用户未登录前，请求后台菜单
     instance.get('/learning/admin/findMenu').then(resp => {
-      let routerList = resp.data.data
+      let routerList = resp.menu
       // window.localStorage.setItem('routerList', JSON.stringify(routerList))
       // 先将后台请求的路由数据保存下来，dispatch触发store.action中方法
       store.dispatch('generatorRouter', routerList).then(() => {

@@ -29,6 +29,12 @@ export default {
       content: ''
     }
   },
+  // props: ['toChild'],
+  // watch:{
+  //   toChild(value){
+  //     console.log('detail组件接受到数据 =======> ' + value)
+  //   }
+  // },
   mounted() {
     this.contentEditor = new Vditor("vditor", {
       height: 600,
@@ -39,18 +45,12 @@ export default {
         enable: false
       },
       after: () => {
-        this.contentEditor.setValue("hello,Vditor+Vue!")
+        let blog = this.$route.params
+        this.contentEditor.setValue(blog.content)
       }
     })
   },
   created() {
-    let blogId = '5fac10764596b04eb4fe89fc'
-    let url = `/learning/blog/findById?id=${blogId}`
-    api.get(url).then(resp => {
-      console.log('===>' + resp.data.content)
-      this.contentEditor.setValue(resp.data.content)
-      this.blogId = resp.data.id
-    })
   },
   methods: {
     edit() {

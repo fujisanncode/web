@@ -25,8 +25,8 @@ instance.interceptors.request.use(
 
 instance.interceptors.response.use(
   response => {
-    // 接口200等
-    return response
+    // 如果接口200，则直接返回data内容
+    return response.data
   },
   err => {
     // 接口401等

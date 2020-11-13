@@ -43,27 +43,27 @@
     <v-app-bar color="blue darken-3" dark app :clipped-left="$vuetify.breakpoint.lgAndUp" v-if="true">
       <v-toolbar-title style="width: 300px" class="ml-0 pl-3">
         <v-app-bar-nav-icon v-if="dispDrawer" @click.stop="drawer = !drawer"></v-app-bar-nav-icon>
-        <span class="hidden-sm-and-down">FUJISANN</span>
+        <span class="hidden-sm-and-down">富士山の小さな宇宙</span>
       </v-toolbar-title>
       <v-text-field flat solo-inverted hide-details prepend-inner-icon="search" label="Search"
-                    class="hidden-sm-and-down"></v-text-field>
+                    class="hidden-sm-and-down" v-if="false"></v-text-field>
       <v-spacer></v-spacer>
-      <v-btn icon to="/">
+      <v-btn icon to="/" v-if="false">
         <v-icon>apps</v-icon>
       </v-btn>
       <v-btn icon to="/">
         <v-icon>notifications</v-icon>
       </v-btn>
       <v-btn icon @click.stop="loginDia()">
-        <v-icon>lock_open</v-icon>
+        <v-icon>mdi-login-variant</v-icon>
       </v-btn>
       <v-btn icon @click="logOut()">
-        <v-icon>lock_outline</v-icon>
+        <v-icon>mdi-logout-variant</v-icon>
       </v-btn>
       <v-btn icon large>
-        <v-avatar size="32px" tile>
+        <v-avatar size="32px">
           <!-- ./只能找到当前目录的文件，当前目录文件夹只能用../向下找 -->
-          <img src="./assets/logo.svg" alt="Vuetify"/>
+          <img src="./assets/avatar/fujisann.jpg" alt="Vuetify"/>
         </v-avatar>
       </v-btn>
     </v-app-bar>
@@ -71,13 +71,19 @@
     <v-footer padless app>
       <v-card class="flex" flat tile>
         <v-card-text class="py-2 black--text text-center">
-          @{{ new Date().getFullYear() }} fujisann — 皖ICP备20005176号
+          <span>@{{ new Date().getFullYear() }} fujisann</span>
+          <span class="px-2"></span>
+          <span> 皖ICP备20005176号</span>
+          <span class="px-2"></span>
+          <a target="_blank" href="http://www.beian.gov.cn/portal/registerSystemInfo?recordcode=32011502011263">
+            苏公网安备 32011502011263号
+          </a>
         </v-card-text>
       </v-card>
     </v-footer>
 
-    <!-- 加载路由-->
-    <router-view></router-view>
+    <!-- 加载路由 getUserName用于传值给userName，userName传递到子组件的props中-->
+    <router-view :userName="getUserName"></router-view>
 
     <!-- 浮动按钮-->
     <v-btn fab bottom right color="pink" dark fixed @click.stop="dialog = !dialog">
@@ -130,10 +136,10 @@
         <v-container grid-list-sm class="pa-4">
           <v-layout row wrap>
             <v-flex xs12>
-              <v-text-field prepend-icon="mail" placeholder="账号" v-model="user.name"/>
+              <v-text-field prepend-icon="mdi-account" placeholder="账号" v-model="user.name"/>
             </v-flex>
             <v-flex xs12>
-              <v-text-field prepend-icon="notes" placeholder="密码" v-model="user.password"/>
+              <v-text-field prepend-icon="mdi-form-textbox-password" placeholder="密码" v-model="user.password"/>
             </v-flex>
           </v-layout>
         </v-container>
@@ -175,7 +181,8 @@ export default {
       timer: '',
       user: {},
       snackbar0: true,
-      rememberUser: false
+      rememberUser: false,
+      getUserName: '游客'
       // 左侧栏是否显示
       // drawer: false
     }
@@ -212,6 +219,10 @@ export default {
     console.log("当前加载完成的菜单为 =======> " + JSON.stringify(this.items))
   },
   methods: {
+    // router-view接受子组件值得方法
+    receivedValue(value){
+      console.log('获取到子组件的值 ======> ' + value)
+    },
     // 构建左侧菜单
     buildMenu() {
       // 将store中路由列表（从后台请求的路由列表）中菜单相关数据提取出来
@@ -279,8 +290,12 @@ export default {
           password: this.user.password
         }
       }).then(resp => {
-        let routerList = resp.data.data
+        // 登录成功，用户名保存到sessionStorage中
+        this.getUserName = resp.user.name
+        sessionStorage.setItem('userName', this.getUserName)
+
         // 登录后保存路由数据
+        let routerList = resp.menu
         window.sessionStorage.setItem('routerList', JSON.stringify(routerList))
         // 保存后台请求的路由
         that.addRouter(routerList)
