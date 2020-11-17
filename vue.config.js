@@ -26,8 +26,8 @@ module.exports = {
     //以上的ip和端口是我们本机的;下面为需要跨域的
     proxy: { //配置跨域
       '/learning': {
-        target: 'http://localhost:8081',
-        // target: 'http://fujisann.ink',
+        // target: 'http://localhost:8081',
+        target: 'http://fujisann.ink',
         // target: 'http://39.101.206.66:80/',
         // target: 'https://www.easy-mock.com/mock/5f9cb3720bf9ee030094075b',
         ws: true,

@@ -1,58 +1,56 @@
 <template>
   <v-app id="vueapp">
     <!-- 左侧抽屉 -->
-    <v-navigation-drawer v-model="$vuetify.breakpoint.lgAndUp" app :clipped="$vuetify.breakpoint.lgAndUp">
-      <v-list dense>
-        <template v-for="item in items">
-          <!-- 如果item.heading 存在，则按照heading菜单的方式显示-->
-          <!-- <v-list-item v-if="item.heading" :key="item.heading">
-            <v-flex xs6>
-              <v-subheader v-if="item.heading">{{ item.heading }}</v-subheader>
-            </v-flex>
-          </v-list-item> -->
-          <!-- 如果item.childen存在，则按照存在子菜单的方式显示 -->
-          <v-list-group v-if="item.children" v-model="item.model" :key="item.text"
-                        :prepend-icon="item.model ? item.icon : item['icon-alt']" append-icon="">
-            <v-list-item slot="activator">
+    <v-navigation-drawer v-model="dispDrawer" app :clipped="$vuetify.breakpoint.lgAndUp">
+      <v-skeleton-loader type="card-heading" :loading="loadingMenu" min-width="500" height="300">
+        <v-list dense>
+          <template v-for="item in items">
+            <!-- 如果item.heading 存在，则按照heading菜单的方式显示-->
+            <!-- <v-list-item v-if="item.heading" :key="item.heading">
+              <v-flex xs6>
+                <v-subheader v-if="item.heading">{{ item.heading }}</v-subheader>
+              </v-flex>
+            </v-list-item> -->
+            <!-- 如果item.childen存在，则按照存在子菜单的方式显示 -->
+            <v-list-group v-if="item.children" v-model="item.model" :key="item.text"
+                          :prepend-icon="item.model ? item.icon : item['icon-alt']" append-icon="">
+              <v-list-item slot="activator">
+                <v-list-item-content>
+                  <v-list-item-title>{{ item.text }}</v-list-item-title>
+                </v-list-item-content>
+              </v-list-item>
+              <v-list-item v-for="(child, i) in item.children" :key="i" @click="hrefTo(child)">
+                <v-list-item-action v-if="child.icon">
+                  <v-icon>{{ child.icon }}</v-icon>
+                </v-list-item-action>
+                <v-list-item-content>
+                  <v-list-item-title>{{ child.text }}</v-list-item-title>
+                </v-list-item-content>
+              </v-list-item>
+            </v-list-group>
+            <!-- 其他的按照普通菜单的方式显示 -->
+            <v-list-item v-else @click="$router.push(item.to)" :key="item.text">
+              <v-list-item-action>
+                <v-icon>{{ item.icon }}</v-icon>
+              </v-list-item-action>
               <v-list-item-content>
                 <v-list-item-title>{{ item.text }}</v-list-item-title>
               </v-list-item-content>
             </v-list-item>
-            <v-list-item v-for="(child, i) in item.children" :key="i" @click="hrefTo(child)">
-              <v-list-item-action v-if="child.icon">
-                <v-icon>{{ child.icon }}</v-icon>
-              </v-list-item-action>
-              <v-list-item-content>
-                <v-list-item-title>{{ child.text }}</v-list-item-title>
-              </v-list-item-content>
-            </v-list-item>
-          </v-list-group>
-          <!-- 其他的按照普通菜单的方式显示 -->
-          <v-list-item v-else @click="$router.push(item.to)" :key="item.text">
-            <v-list-item-action>
-              <v-icon>{{ item.icon }}</v-icon>
-            </v-list-item-action>
-            <v-list-item-content>
-              <v-list-item-title>{{ item.text }}</v-list-item-title>
-            </v-list-item-content>
-          </v-list-item>
-        </template>
-      </v-list>
+          </template>
+        </v-list>
+      </v-skeleton-loader>
     </v-navigation-drawer>
     <!-- toolbar，顶部标题栏 -->
-    <v-app-bar color="blue darken-3" dark app :clipped-left="$vuetify.breakpoint.lgAndUp" v-if="true">
-      <v-toolbar-title style="width: 300px" class="ml-0 pl-3">
-        <v-app-bar-nav-icon v-if="dispDrawer" @click.stop="drawer = !drawer"></v-app-bar-nav-icon>
-        <span class="hidden-sm-and-down">富士山の小さな宇宙</span>
-      </v-toolbar-title>
+    <v-app-bar elevation=1 app :clipped-left="$vuetify.breakpoint.lgAndUp" v-if="true">
+      <v-app-bar-nav-icon v-if="!$vuetify.breakpoint.lgAndUp" @click="drawer=true">
+      </v-app-bar-nav-icon>
+      <span class="hidden-sm-and-down">富士山の小さな宇宙</span>
       <v-text-field flat solo-inverted hide-details prepend-inner-icon="search" label="Search"
                     class="hidden-sm-and-down" v-if="false"></v-text-field>
       <v-spacer></v-spacer>
       <v-btn icon to="/" v-if="false">
         <v-icon>apps</v-icon>
-      </v-btn>
-      <v-btn icon to="/">
-        <v-icon>notifications</v-icon>
       </v-btn>
       <v-btn icon @click.stop="loginDia()">
         <v-icon>mdi-login-variant</v-icon>
@@ -83,7 +81,9 @@
     </v-footer>
 
     <!-- 加载路由 getUserName用于传值给userName，userName传递到子组件的props中-->
-    <router-view :userName="getUserName"></router-view>
+    <!--    <v-skeleton-loader type="card" :loading="loadingMenu">-->
+    <router-view :userName="getUserName" v-show="!loadingMenu"></router-view>
+    <!--    </v-skeleton-loader>-->
 
     <!-- 浮动按钮-->
     <v-btn fab bottom right color="pink" dark fixed @click.stop="dialog = !dialog">
@@ -175,16 +175,29 @@ export default {
       // 左侧菜单显示内容，在create中通过顺序和router绑定，拟在此处指定路由名称进行绑定
       // {}
       items: [],
-      // 显示左侧栏的按钮
-      dispDrawer: true,
+      // 显示左侧栏
+      dispDrawer: this.$vuetify.breakpoint.lgAndUp,
       // 定时器
       timer: '',
       user: {},
       snackbar0: true,
       rememberUser: false,
-      getUserName: '游客'
+      getUserName: '游客',
+      loadingMenu: true,
       // 左侧栏是否显示
-      // drawer: false
+      drawer: false
+    }
+  },
+  watch:{
+    drawer(value){
+      console.log('drawer==========>'+value)
+      this.dispDrawer = this.$vuetify.breakpoint.lgAndUp || value
+      console.log('disDrawer==========>'+ this.dispDrawer)
+    },
+    dispDrawer(value){
+      if(!value) {
+        this.drawer = value
+      }
     }
   },
   created() {
@@ -197,6 +210,8 @@ export default {
       that.timer = setInterval(() => {
         if (this.$store.getters.getRouter.length !== 0) {
           this.buildMenu()
+          // 菜单构建后取消骨架加载
+          this.loadingMenu = false
           clearInterval(that.timer) // 加载完毕菜单，清除定时任务
         } else if (Date.now() - start > 1000) {
           // this.$router.push('/404')
@@ -219,8 +234,11 @@ export default {
     console.log("当前加载完成的菜单为 =======> " + JSON.stringify(this.items))
   },
   methods: {
+    // dispDrawer(){
+    //   return this.$vuetify.breakpoint.lgAndUp || this.drawer
+    // },
     // router-view接受子组件值得方法
-    receivedValue(value){
+    receivedValue(value) {
       console.log('获取到子组件的值 ======> ' + value)
     },
     // 构建左侧菜单
@@ -254,7 +272,7 @@ export default {
           'icon-alt': meta['icon-alt'],
           model: meta.model === 'true',
         }
-        if(e.children !== undefined) {
+        if (e.children !== undefined) {
           tmp.children = this.buildChild(e.children)
         }
         result.push(tmp)
@@ -332,7 +350,7 @@ export default {
         e.component = resolve => {
           require(['@/' + componentName + '.vue'], resolve)
         }
-        if(e.children !== undefined) {
+        if (e.children !== undefined) {
           e.children = this.buildChildRouter(e.children)
         }
       })
