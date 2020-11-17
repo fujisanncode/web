@@ -1,4 +1,6 @@
 const webpack = require('webpack')
+const CompressionWebpackPlugin = require('compression-webpack-plugin')
+const productionGzipExtensions = ['js', 'css']
 module.exports = {
   configureWebpack: {
     plugins: [
@@ -6,7 +8,14 @@ module.exports = {
         $: 'jquery',
         jQuery: 'jquery',
         'windows.jQuery': 'jquery'
-      })
+      }),
+      // gzip插件
+      new CompressionWebpackPlugin({
+        algorithm: 'gzip',
+        test: new RegExp('\\.(' + productionGzipExtensions.join('|') + ')$'),
+        threshold: 10240,
+        minRatio: 0.8
+      }),
     ]
   },
   devServer: {
