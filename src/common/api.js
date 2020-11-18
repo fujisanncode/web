@@ -1,9 +1,6 @@
 import axios from 'axios'
-import Router from '@/router.js'
-import url from './const.js'
-// 注意：在js文件中使用element组件 按照下面更优雅哦~~
 import Vue from 'vue'
-import self from '../main.js'
+import url from './const.js'
 
 let instance = axios.create({
   timeout: 30000, // 超时时间

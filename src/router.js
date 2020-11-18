@@ -1,14 +1,9 @@
 import Vue from 'vue'
-import Router from 'vue-router'
+import VueRouter from 'vue-router'
 
 // 将js分块打包，生成多个vendor，实现按需加载
 const Login = () => import(/* webpackChunkName: 'Login' */ '@/components/login/Login.vue')
 // const Index = () => import(/* webpackChunkName: 'Index' */  '@/App.vue')
-// const Embed = () => import(/* webpackChunkName: 'Embed' */  '@/components/reader/view/embed.vue')
-// const View = () => import(/* webpackChunkName: 'View' */  '@/components/reader/view/view.vue')
-// const Shelf = () => import(/* webpackChunkName: 'Shelf' */  '@/components/reader/shelf/shelf.vue')
-// const Reader = () => import(/* webpackChunkName: 'Reader' */  '@/components/reader/pdf/pdf.vue')
-// const Home = () => import(/* webpackChunkName: 'Home' */  '@/components/home/home.vue')
 // const PlanNew = () => import(/* webpackChunkName: 'PlanNew' */  '@/components/plan/planEdit.vue')
 // const PlanList = () => import(/* webpackChunkName: 'PlanNew' */  '@/components/plan/planList.vue')
 // const Health = () => import(/* webpackChunkName: 'Health' */  '@/components/health/health.vue')
@@ -21,9 +16,10 @@ const Login = () => import(/* webpackChunkName: 'Login' */ '@/components/login/L
 const UnAuth = () => import(/* webpackChunkName: 'UnAuth' */  '@/components/error/403.vue')
 const NotFound = () => import(/* webpackChunkName: 'Notfound' */  '@/components/error/404.vue')
 
-Vue.use(Router)
+Vue.use(VueRouter)
 
-export default new Router({
+// router必须导出为此名称
+const router = new VueRouter({
   // 根路径，默认跳转index, history模式根路径不确定
   mode: 'history',
   // base: '/web',
@@ -49,3 +45,5 @@ export default new Router({
     }
   ]
 })
+
+export default router

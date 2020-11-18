@@ -1,5 +1,5 @@
 import Vue from 'vue'
-import vuetify from '@/plugins/vuetify.js'
+import Vuetify from 'vuetify'
 import messageComponent from '@/components/message/message.vue'
 
 // 组件构造器，构造出一个vue的子类MsgConstructor，所以Vue中use的vuetify，在子类中不需要重复引入
@@ -27,7 +27,7 @@ function showMsg ({ text, color, duration = 3000 }) {
   })
 
   // 将vuetify.framework赋值给message实例，解决vuetify2.3版本使用snackbar报错的问题
-  Object.assign(vm, { $vuetify: vuetify.framework })
+  Object.assign(vm, { $vuetify: Vuetify.framework })
 
   // 1、指定挂载点，只有指定el，或者通过$mount指定挂载点，才能进入下一步编译模板为html
   // 编译后的html会将挂载点的元素替换掉，生成真实的Dom
@@ -48,5 +48,5 @@ function showMsg ({ text, color, duration = 3000 }) {
 function registryMsg() {
   Vue.prototype.$msg = showMsg
 }
- 
+
 export default registryMsg

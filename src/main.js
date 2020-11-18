@@ -1,15 +1,12 @@
 // import 引入资源=============================================================================================================================
 import Vue from 'vue'
-import vuetify from './plugins/vuetify.js'
-import 'vuetify/src/styles/main.sass'
+import VueAxios from 'vue-axios'
+// import 'vuetify/src/styles/main.sass'
 import App from './App.vue'
 import router from './router'
 import store from './store'
-import 'material-design-icons-iconfont/dist/material-design-icons.css'
-import '@mdi/font/css/materialdesignicons.css'
-// import axios from 'axios'
+// import '@mdi/font/css/materialdesignicons.css'
 import instance from '@/common/api.js'
-// import VueAxios from 'vue-axios'
 // 引入jquery
 // import jQuery from 'jquery'
 import md5 from 'js-md5'
@@ -48,16 +45,6 @@ Vue.use(VueFroala)
 Vue.prototype.$base64 = Base64
 Vue.prototype.$md5 = md5
 
-
-// import Vue from 'vue';
-// import Vuetify, { VSnackbar } from 'vuetify/lib'
-// const opts = {}; // your options
-// const vueObj = new Vuetify(opts);
-
-// import VuetifyToast from 'vuetify-toast-snackbar'
-// // export default vueObj;
-// Vue.use(Vuetify)
-// Vue.use(VuetifyToast, {$vuetify: vueObj.framework});
 // 定义全局引用 ================================================================================================================================
 
 Vue.config.productionTip = false
@@ -127,7 +114,8 @@ function formatRouter() {
 // $mount: 指定vue实例的挂载点， 将vue实例挂在index.html上id为app的div上
 // 代替template字段，渲染模板字符串为dom页面, 渲染的页面会替代index.html中挂载点的元素(id=app的div元素)
 new Vue({
-  vuetify,
+  // vuetify,
+  vuetify: window.Vuetify,
   router,
   store,
   render: h => h(App)
