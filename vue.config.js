@@ -24,7 +24,12 @@ module.exports = {
             'vue-router': 'VueRouter',
             vuex: 'Vuex',
             axios: 'axios',
-            vuetify: 'Vuetify'
+            vuetify: 'Vuetify',
+            vditor: 'Vditor',
+            'vue-froala-wysiwyg': 'VueFroala',
+            jquery: '$',
+            'js-md5': 'md5',
+            'js-base64': 'Base64'
         }
     },
     devServer: {
