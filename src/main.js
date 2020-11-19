@@ -1,23 +1,22 @@
 // import 引入资源=============================================================================================================================
 import Vue from 'vue'
-import VueAxios from 'vue-axios'
-// import 'vuetify/src/styles/main.sass'
 import App from './App.vue'
 import router from './router'
 import store from './store'
-// import '@mdi/font/css/materialdesignicons.css'
 import instance from '@/common/api.js'
-// 引入jquery
-// import jQuery from 'jquery'
 import md5 from 'js-md5'
+Vue.prototype.$md5 = md5
 import {Base64} from 'js-base64'
+Vue.prototype.$base64 = Base64 //base64中没有定义install属性 不能通过Vue.use引用
 // Import and use Vue Froala lib.
 import VueFroala from 'vue-froala-wysiwyg'
+Vue.use(VueFroala)
 // 定义全局的jQuery  或者通过webpack定义   如果没有全局jquery 只能通过$.id 绑定froala
 // window.jQuery = window.$ = $
 // require('vuetify/src/stylus/app.styl')
 // 全局使用自定义的组件；在vue的js中用this.$msg,在独立的js先import vue，然后用v.prototype.$msg使用组件
 import registryMsg from '@/components/message/message.js'
+Vue.use(registryMsg) //生成消息弹窗的方法注册到vue中，可以全局使用
 // let base64 = require('js-base64').Base64
 // import 引入资源=============================================================================================================================
 
@@ -34,21 +33,8 @@ require('froala-editor/css/froala_style.min.css')
 // require 引入资源=============================================================================================================================
 
 // 定义全局引用 .use()/.prototype.$xxx==========================================================================================================
-// 生成消息弹窗的方法注册到vue中，可以全局使用
-Vue.use(registryMsg)
-
-Vue.use(VueFroala)
-// Vue.use($)
-// Vue.use(VueAxios, axios)
-
-// base64中没有定义install属性 不能通过Vue.use引用
-Vue.prototype.$base64 = Base64
-Vue.prototype.$md5 = md5
-
-// 定义全局引用 ================================================================================================================================
 
 Vue.config.productionTip = false
-
 // import mavonEditor from 'mavon-editor'
 // import 'mavon-editor/dist/css/index.css'
 // Vue.use(mavonEditor)
@@ -113,9 +99,16 @@ function formatRouter() {
 // vue实例化 =====================================================================================================================================
 // $mount: 指定vue实例的挂载点， 将vue实例挂在index.html上id为app的div上
 // 代替template字段，渲染模板字符串为dom页面, 渲染的页面会替代index.html中挂载点的元素(id=app的div元素)
+import Vuetify from 'vuetify'
+Vue.use(Vuetify)
+
 new Vue({
   // vuetify,
-  vuetify: window.Vuetify,
+  vuetify: new Vuetify({
+    icons: {
+      iconfont: 'mdi', // default - only for display purposes
+    }
+  }),
   router,
   store,
   render: h => h(App)

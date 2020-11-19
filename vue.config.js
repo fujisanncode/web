@@ -18,7 +18,7 @@ module.exports = {
                 minRatio: 0.8
             }),
         ],
-        // 资源名称：main.js中引用的名称
+        // 打包排除： 资源名称：main.js中引用的名称
         externals: {
             vue: 'Vue',
             'vue-router': 'VueRouter',

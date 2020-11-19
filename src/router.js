@@ -1,5 +1,6 @@
 import Vue from 'vue'
 import VueRouter from 'vue-router'
+Vue.use(VueRouter)
 
 // 将js分块打包，生成多个vendor，实现按需加载
 const Login = () => import(/* webpackChunkName: 'Login' */ '@/components/login/Login.vue')
@@ -15,8 +16,6 @@ const Login = () => import(/* webpackChunkName: 'Login' */ '@/components/login/L
 // const Permission = () => import(/* webpackChunkName: 'User' */  '@/components/admin/permission/permission.vue')
 const UnAuth = () => import(/* webpackChunkName: 'UnAuth' */  '@/components/error/403.vue')
 const NotFound = () => import(/* webpackChunkName: 'Notfound' */  '@/components/error/404.vue')
-
-Vue.use(VueRouter)
 
 // router必须导出为此名称
 const router = new VueRouter({

@@ -1,5 +1,8 @@
-import axios from 'axios'
 import Vue from 'vue'
+import VueAxios from 'vue-axios'
+import axios from 'axios'
+Vue.use(VueAxios, axios)
+
 import url from './const.js'
 
 let instance = axios.create({
