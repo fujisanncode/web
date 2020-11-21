@@ -1,4 +1,6 @@
-import apiService from "@/components/about/About.service.js"
+import apiService from "@/components/reader/blog/blog.service.js"
+// import VueFroala from 'vue-froala-wysiwyg'
+// var editor = new FroalaEditor('#example')
 export default {
   data () {
     return {

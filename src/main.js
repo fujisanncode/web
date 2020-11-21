@@ -1,46 +1,33 @@
-// import 引入资源=============================================================================================================================
 import Vue from 'vue'
 import App from './App.vue'
-import router from './router'
-import store from './store'
+import vuetify from "./plugins/vuetify";
+import router from './plugins/router'
+import store from './plugins/store'
 import instance from '@/common/api.js'
 import md5 from 'js-md5'
-Vue.prototype.$md5 = md5
+Vue.prototype.$md5 = md5 // 全局引用
 import {Base64} from 'js-base64'
 Vue.prototype.$base64 = Base64 //base64中没有定义install属性 不能通过Vue.use引用
-// Import and use Vue Froala lib.
-import VueFroala from 'vue-froala-wysiwyg'
-Vue.use(VueFroala)
-// 定义全局的jQuery  或者通过webpack定义   如果没有全局jquery 只能通过$.id 绑定froala
-// window.jQuery = window.$ = $
-// require('vuetify/src/stylus/app.styl')
-// 全局使用自定义的组件；在vue的js中用this.$msg,在独立的js先import vue，然后用v.prototype.$msg使用组件
 import registryMsg from '@/components/message/message.js'
 Vue.use(registryMsg) //生成消息弹窗的方法注册到vue中，可以全局使用
-// let base64 = require('js-base64').Base64
-// import 引入资源=============================================================================================================================
-
-// require 引入资源=============================================================================================================================
-// 引入 Froala Editor js file.
-require('froala-editor/js/froala_editor.pkgd.min')
-// 引入中文语言包
-require('froala-editor/js/languages/zh_cn')
-// 引入 Froala Editor css files.
-require('froala-editor/css/froala_editor.pkgd.min.css')
-// 此处可在index.html中引入：font-awesome cdn地址：<link href="https://cdn.bootcss.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet">
-require('font-awesome/css/font-awesome.css') 
-require('froala-editor/css/froala_style.min.css')
-// require 引入资源=============================================================================================================================
-
-// 定义全局引用 .use()/.prototype.$xxx==========================================================================================================
-
-Vue.config.productionTip = false
+import VueFroala from './plugins/vue-froala'
+Vue.use(VueFroala)
+// import VueFroala from 'vue-froala-wysiwyg'
+// Vue.use(VueFroala) // 全局引用
+// Vue.config.productionTip = false
+// require('font-awesome/css/font-awesome.css')
+// require('froala-editor/css/froala_editor.pkgd.min.css')
+// require('froala-editor/css/froala_style.min.css')
+// require('froala-editor/js/languages/zh_cn')
+// require('froala-editor/js/froala_editor.pkgd.min')
+// 定义全局的jQuery  或者通过webpack定义   如果没有全局jquery 只能通过$.id 绑定froala
+import $ from 'jquery' // froala需要使用jquery
+window.jquery = window.$ = $
 // import mavonEditor from 'mavon-editor'
 // import 'mavon-editor/dist/css/index.css'
 // Vue.use(mavonEditor)
 
-// 路由守卫 =====================================================================================================================================
-// 路由守卫，在导航跳转前生效：https://router.vuejs.org/zh/guide/advanced/navigation-guards.html#%E5%85%A8%E5%B1%80%E5%89%8D%E7%BD%AE%E5%AE%88%E5%8D%AB
+// 路由守卫
 router.beforeEach((to, from, next) => {
   // 放行404
   if (to.path === '/404') {
@@ -87,28 +74,13 @@ router.beforeEach((to, from, next) => {
     // })
   }
 })
-// 路由守卫 =====================================================================================================================================
-
-// 封装的方法 =====================================================================================================================================
-// 将后台component字符串加载为component组件对象
-function formatRouter() {
-
-}
-// 封装的方法 =====================================================================================================================================
 
 // vue实例化 =====================================================================================================================================
 // $mount: 指定vue实例的挂载点， 将vue实例挂在index.html上id为app的div上
 // 代替template字段，渲染模板字符串为dom页面, 渲染的页面会替代index.html中挂载点的元素(id=app的div元素)
-import Vuetify from 'vuetify'
-Vue.use(Vuetify)
 
 new Vue({
-  // vuetify,
-  vuetify: new Vuetify({
-    icons: {
-      iconfont: 'mdi', // default - only for display purposes
-    }
-  }),
+  vuetify,
   router,
   store,
   render: h => h(App)

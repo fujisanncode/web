@@ -86,7 +86,7 @@
     <!--    </v-skeleton-loader>-->
 
     <!-- 浮动按钮-->
-    <v-btn fab bottom right color="pink" dark fixed @click.stop="dialog = !dialog">
+    <v-btn v-if="false" fab bottom right color="pink" dark fixed @click.stop="dialog = !dialog">
       <v-icon>add</v-icon>
     </v-btn>
     <!-- 浮动按钮的弹窗 -->
