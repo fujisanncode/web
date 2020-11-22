@@ -1,7 +1,6 @@
 // ui 组件 vuetify
 import Vue from 'vue'
 import Vuetify from 'vuetify'
-import '@mdi/font/css/materialdesignicons.css' // mdi图标库
 Vue.use(Vuetify)
 import zhHans from 'vuetify/es5/locale/zh-Hans'
 import colors from 'vuetify/lib/util/colors'
