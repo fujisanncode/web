@@ -23,7 +23,7 @@ export default {
             // console.log('initialized')
           }
         },
-        height: 400
+        height: 700
         // width: 1000
       },
       froalaContent: "",

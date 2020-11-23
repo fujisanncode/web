@@ -14,8 +14,8 @@
         {{ apiResult }}
       </v-snackbar>
       <v-layout row>
-        <v-flex xs8 pa-2 class="froala-editor">
-          <v-form v-model="valid">
+        <v-flex xs12 pa-2 class="froala-editor">
+          <v-form v-model="valid" v-if="false">
             <v-container>
               <v-row>
                 <v-col cols="12" md="4">
@@ -29,7 +29,7 @@
           </v-form>
           <froala :tag="'textarea'" :config="froalaConfig" v-model="froalaContent"></froala>
         </v-flex>
-        <v-flex xs4 pa-2>
+        <v-flex xs4 pa-2 v-if="false">
           <v-card>
             <v-app-bar color="indigo" dark>
               <v-app-bar-nav-icon></v-app-bar-nav-icon>
