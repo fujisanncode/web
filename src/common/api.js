@@ -3,7 +3,7 @@ import VueAxios from 'vue-axios'
 import axios from 'axios'
 Vue.use(VueAxios, axios)
 
-import url from './const.js'
+import c from '@/common/const.js'
 
 let instance = axios.create({
   timeout: 30000, // 超时时间
@@ -31,12 +31,12 @@ instance.interceptors.response.use(
   err => {
     // 接口401等
     switch (err.response.status) {
-      case url.unAuthCode:
+      case c.urlxx.unAuthCode:
         // Router.push('/login')
         console.log('未认证')
         Vue.prototype.$msg({text: '未认证(' + err.response.status  + ')', color: 'error'})
         break
-      case url.forbiddenCode:
+      case c.urlxx.forbiddenCode:
         console.log('未授权')
         Vue.prototype.$msg({text: '未授权(' + err.response.status  + ')', color: 'error'})
         break

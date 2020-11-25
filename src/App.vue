@@ -211,8 +211,6 @@ export default {
       that.timer = setInterval(() => {
         if (this.$store.getters.getRouter.length !== 0) {
           this.buildMenu()
-          // 菜单构建后取消骨架加载
-          this.loadingMenu = false
           clearInterval(that.timer) // 加载完毕菜单，清除定时任务
         } else if (Date.now() - start > 1000) {
           // this.$router.push('/404')
@@ -251,7 +249,8 @@ export default {
       this.items = []
       // 将保存的路由列表中菜单信息提取出来
       this.items.push(...this.buildChild(routerList))
-
+      // 菜单构建后取消骨架加载
+      this.loadingMenu = false
       // console.log("当前路由值 ====> " + JSON.stringify(this.$store.getters.getRouter))
       // console.log("当前菜单值 ====> " + JSON.stringify(this.items))
     },
@@ -316,7 +315,7 @@ export default {
 
         // 登录后保存路由数据
         let routerList = resp.menu
-        window.sessionStorage.setItem('routerList', JSON.stringify(routerList))
+        sessionStorage.setItem('routerList', JSON.stringify(routerList))
         // 保存后台请求的路由
         that.addRouter(routerList)
         // 读取保存的路由中的菜单信息，然后构建菜单

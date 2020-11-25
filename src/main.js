@@ -35,7 +35,7 @@ router.beforeEach((to, from, next) => {
   }
 
   // 如果后台请求的路由未保存本地，需要请求后台
-  if (store.getters.getRouter.length !== 0) {
+  if (sessionStorage.getItem('routerList') !== null) {
     console.log('store中存储的路由数量：' + store.getters.getRouter.length)
     console.log('当前即将跳转到url:' + to.path)
     // 保存当前url，用户页面刷新后设置
@@ -45,7 +45,7 @@ router.beforeEach((to, from, next) => {
     // 用户未登录前，请求后台菜单
     instance.get('/learning/admin/findMenu').then(resp => {
       let routerList = resp.menu
-      // window.localStorage.setItem('routerList', JSON.stringify(routerList))
+      sessionStorage.setItem('routerList', JSON.stringify(routerList))
       // 先将后台请求的路由数据保存下来，dispatch触发store.action中方法
       store.dispatch('generatorRouter', routerList).then(() => {
         let routerResult = []

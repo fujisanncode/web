@@ -1,22 +1,22 @@
 import instance from '@/common/api.js'
-import url from '@/common/const.js'
+import c from '@/common/const.js'
 export default {
   newPlan(postPara) {
     return instance({
-      url: url.newPlan,
+      url: c.url.newPlan,
       method: 'post',
       data: postPara
     })
   },
   planList() {
     return instance({
-      url: url.findAllPlan,
+      url: c.url.findAllPlan,
       method: 'get'
     })
   },
   deleteById(planId){
     return instance({
-      url: `${url.deletePlanById}/${planId}`,
+      url: `${c.url.deletePlanById}/${planId}`,
       method: 'delete'
     })
   }
