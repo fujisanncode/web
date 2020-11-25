@@ -204,6 +204,7 @@ export default {
     // 如果未加载过菜单，则将后台路由转化为菜单
     let savedMenu = window.sessionStorage.getItem('routerList')
     if (savedMenu === null) {
+      console.log('当前未保存路由，重新请求重新渲染')
       let start = Date.now()
       // 50ms执行一次定时任务，路由表不为空或超时：则清楚定时任务，并完成路由跳转
       let that = this
@@ -221,6 +222,7 @@ export default {
         // clearInterval(this.timer) // 超时，清除定时任务
       }, 50)
     } else {
+      console.log('当前已经保存路由，仅重新渲染')
       // 如果本地存储了路由信息则
       this.addRouter(JSON.parse(savedMenu))
       this.buildMenu()

@@ -1,9 +1,10 @@
 // ui 组件 vuetify
 import Vue from 'vue'
-import Vuetify from 'vuetify'
+import Vuetify from 'vuetify/lib'
 Vue.use(Vuetify)
 import zhHans from 'vuetify/es5/locale/zh-Hans'
 import colors from 'vuetify/lib/util/colors'
+
 // 引用自定义图标文件
 import '@/assets/icon/markdown/iconfont.css'
 import MyIcon from '@/components/icon/icon.vue'

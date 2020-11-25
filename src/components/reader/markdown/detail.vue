@@ -46,11 +46,20 @@ export default {
       },
       after: () => {
         let blog = this.$route.params
+        this.blogId = blog.id
         this.contentEditor.setValue(blog.content)
       }
     })
   },
   created() {
+    // vue推荐的定时任务方式
+    const timer = setInterval(() =>{
+      this.submit()
+    }, 20000);
+    // 通过$once来监听定时器，在beforeDestroy钩子可以被清除。
+    this.$once('hook:beforeDestroy', () => {
+      clearInterval(timer);
+    })
   },
   methods: {
     edit() {
@@ -72,7 +81,10 @@ export default {
       api.post(url, postParam).then(resp => {
         if (resp.data !== '') {
           console.log("xxxx ===> " + resp.data)
-          this.blogId = resp.data
+          if(resp.data != undefined) {
+            this.blogId = resp.data
+          }
+          this.$msg({text: '保存成功', color: 'info'})
         }
       })
     }

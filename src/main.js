@@ -36,7 +36,10 @@ router.beforeEach((to, from, next) => {
 
   // 如果后台请求的路由未保存本地，需要请求后台
   if (store.getters.getRouter.length !== 0) {
-    console.log('store中已经存储了后台请求的路由: ' + store.getters.getRouter[0].path)
+    console.log('store中存储的路由数量：' + store.getters.getRouter.length)
+    console.log('当前即将跳转到url:' + to.path)
+    // 保存当前url，用户页面刷新后设置
+    sessionStorage.setItem("currentUrl", to.path)
     next()
   } else {
     // 用户未登录前，请求后台菜单
@@ -60,7 +63,12 @@ router.beforeEach((to, from, next) => {
 
         // 如果访问根路径，则导航到的第一条路由
         if (to.path === '/') {
-          next({path: routerResult[0].path})
+          let currentUrl = sessionStorage.getItem("currentUrl");
+          if(currentUrl !== null){
+            next({path: currentUrl})
+          } else {
+            next({path: routerResult[0].path})
+          }
         } else {
           // 尝试路由到to，如果to未加载，则抛异常转到404；...to为将to对象结构为json对象，其实只需要to.path即可
           next({...to})

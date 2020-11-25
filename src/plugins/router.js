@@ -10,7 +10,7 @@ const NotFound = () => import(/* webpackChunkName: 'Notfound' */  '@/components/
 
 // router必须导出为此名称
 const router = new VueRouter({
-  // 根路径，默认跳转index, history模式根路径不确定
+  // hash路由模式下，路径会累加
   mode: 'history',
   // base: '/web',
   routes: [

@@ -30,10 +30,15 @@ See [Configuration Reference](https://cli.vuejs.org/config/).
 ## 更新日志
 
 ### 2020.11
-1. 引入md5编辑器[vidtor](https://b3log.org/vditor/)
+1. 引入md5编辑器[vidtor](https://b3log.org/vditor/)，编辑器支持所见即所得模式，类似md编辑器Typora
 2. 通过cdn方式引用富文本编辑器[froala-editor](https://github.com/froala/vue-froala-wysiwyg/)
    1. js通过cdn引用：index中引用，本地安装，main.js中引用，webpack中排除；需要本地安装，否则会报错，webpack中排除即可
    2. css通过cdn引用：index中引用；不需要本地安装，不需要再main.js中引用，不需要再webpack中排除
+   3. pkdg版本为付费版，功能强大，未激活会存在水印；免费版本功能少，例如没有图片功能，没有水印
+3. froala-editor解决未付费水印的问题，[参考](https://www.cnblogs.com/bremm/p/12792321.html)
+   1. 修改后的文件不能通过三方CDN引用，则放到nginx中，并且通过CDN加速nginx文件的访问
+4. vuetifyjs通过npm install 的方式引用，需要引用vuetify.framework解决全局弹窗报错的问题
+5. 分析webpack打包各依赖体积，使用工具[Webpack Bundle Analyzer插件](https://segmentfault.com/a/1190000017716736)
 
 ### 2020.10
 1. 引入pdf.js

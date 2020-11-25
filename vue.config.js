@@ -58,7 +58,7 @@ module.exports = {
             'vue-router': 'VueRouter',
             vuex: 'Vuex',
             axios: 'axios',
-            vuetify: 'Vuetify',
+            // vuetify: 'Vuetify',
             vditor: 'Vditor',
             jquery: 'jQuery',
             // 'vue-froala-wysiwyg': 'vueFroala',

@@ -1,5 +1,6 @@
 import Vue from 'vue'
-import Vuetify from 'vuetify'
+// import Vuetify from 'vuetify' // cdn引用vuetify
+import vuetify from '@/plugins/vuetify' // npm install 引用vuetify
 import messageComponent from '@/components/message/message.vue'
 
 // 组件构造器，构造出一个vue的子类MsgConstructor，所以Vue中use的vuetify，在子类中不需要重复引入
@@ -7,7 +8,7 @@ import messageComponent from '@/components/message/message.vue'
 const MsgConstructor = Vue.extend(messageComponent)
 
 // 定义全局方法中显示和隐藏组件的行为
-function showMsg ({ text, color, duration = 3000 }) {
+function showMsg ({ text, color, duration = 2000 }) {
 
   // 1、实例化MsgConstructor，需要指定template和data，因为template在构造器中已经指定不需要重复指定
   const vm = new MsgConstructor({
@@ -27,7 +28,7 @@ function showMsg ({ text, color, duration = 3000 }) {
   })
 
   // 将vuetify.framework赋值给message实例，解决vuetify2.3版本使用snackbar报错的问题
-  Object.assign(vm, { $vuetify: Vuetify.framework })
+  Object.assign(vm, { $vuetify: vuetify.framework })
 
   // 1、指定挂载点，只有指定el，或者通过$mount指定挂载点，才能进入下一步编译模板为html
   // 编译后的html会将挂载点的元素替换掉，生成真实的Dom
